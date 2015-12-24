@@ -55,7 +55,3 @@ docs/_build/
 
 # PyBuilder
 target/
-
-#Python Stuff
-*.pyc
-*.pyo
