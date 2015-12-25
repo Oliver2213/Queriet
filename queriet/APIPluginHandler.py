@@ -1,7 +1,7 @@
 #This is the API handler of Queriet
 #Please see the license file in the main directory of this repository for licensing information
 
-class APIPlugin:
+class APIPlugin(object):
 	"""This class is a template for an API plugin. 
 		In order for an APIPlugin to be valid, it must have all of these variables in a "manifest.json" file inside your plugin's directory.
 		Name - the API plugin's name. Usually this can be set to the name of the service you want this to handle, such as "wikipedia"
