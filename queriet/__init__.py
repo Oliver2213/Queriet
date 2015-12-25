@@ -11,4 +11,4 @@ from ui import mainUI
 #mainUI(None, "Queriet")
 #app.MainLoop()
 
-import APIHandler
+import APIPluginHandler

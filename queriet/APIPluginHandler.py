@@ -11,3 +11,5 @@ class APIPlugin:
 		requires - This should be a list of the python modules your plugin requires, use the same format as pip, e.g. requests>=2.0. If your APIPlugin doesn't have any "requirements", good for you, just leave the list empty. Currently, Queriet won't install these or do anything with them really, but at some point in the future it should.
 		Your APIPlugin will also need to support the following methods:
 		getResult(searchtext): This is the main one. This needs to return a Queriet result object
+
+	"""
