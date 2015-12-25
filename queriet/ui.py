@@ -5,7 +5,7 @@ import wx
 
 class mainUI(wx.Frame):
 	def __init__(self, parent, title):
-		super(main, self).__init__(parent, title=title, size=(1000, 800))
+		super(mainUI, self).__init__(parent, title=title, size=(1000, 800))
 		self.setup()
 		self.Center()
 		self.Show()
