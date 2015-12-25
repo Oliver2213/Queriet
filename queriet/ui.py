@@ -1,3 +1,6 @@
+#Queriet user interface file
+#Please see the license file in the main directory for licensing information
+
 import wx
 
 class main(wx.Frame):
@@ -8,15 +11,15 @@ class main(wx.Frame):
 		self.Show()
 
 	def setup(self):
-		panel = wx.Panel(self)
+		panel = wx.Panel(self) # the main pannel that children pannels inherit from
 
 		#API list
 		listPanel = wx.Panel(panel)
-		listSizer = wx.BoxSizer(wx.HORIZONTAL)
-		apiStatic = wx.StaticText(listPanel, -1, 'API')
-		listSizer.Add(apiStatic, 1, wx.TOP | wx.BOTTOM | wx.LEFT, 5)
-		self.apiList = wx.ListBox(listPanel, -1)
-		listSizer.Add(self.apiList, 1, wx.EXPAND | wx.ALL, 20)
+		listSizer = wx.BoxSizer(wx.HORIZONTAL) #A list to hold the API listview
+		apiStatic = wx.StaticText(listPanel, -1, 'API') #A label for our listview
+		listSizer.Add(apiStatic, 1, wx.TOP | wx.BOTTOM | wx.LEFT, 5) # adding this label to our api sizer
+		self.apiList = wx.ListBox(listPanel, -1) #create the actual list
+		listSizer.Add(self.apiList, 1, wx.EXPAND | wx.ALL, 20) #Add it to the list sizer
 
 		#Info panel
 		infoPanel = wx.Panel(panel)
@@ -35,7 +38,7 @@ class main(wx.Frame):
 		#Output panel
 		outputPanel = wx.Panel(infoPanel)
 		outputSizer = wx.BoxSizer(wx.VERTICAL)
-		outputStatic = wx.StaticText(outputPanel, -1, 'Output', (5, 5))
+		outputStatic = wx.StaticText(outputPanel, -1, 'Results', (5, 5))
 		self.output = wx.TextCtrl(outputPanel, -1, style=wx.TE_MULTILINE)
 		outputSizer.Add(outputStatic, 0, wx.TOP|wx.LEFT, 10)
 		outputSizer.Add(self.output, 6, wx.LEFT|wx.BOTTOM|wx.RIGHT|wx.EXPAND, 20)
