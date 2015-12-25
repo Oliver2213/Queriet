@@ -24,7 +24,7 @@ class main(wx.Frame):
 
 		#Input panel.
 		inputPanel = wx.Panel(infoPanel)
-		inputStatic = wx.StaticText(listPanel, -1, 'Input')
+		inputStatic = wx.StaticText(inputPanel, -1, 'Input')
 		self.input = wx.TextCtrl(inputPanel, -1)
 		self.searchButton = wx.Button(inputPanel, -1, 'Search', size=(90, 30))
 		inputSizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -36,7 +36,7 @@ class main(wx.Frame):
 		outputPanel = wx.Panel(infoPanel)
 		outputSizer = wx.BoxSizer(wx.VERTICAL)
 		outputStatic = wx.StaticText(outputPanel, -1, 'Output', (5, 5))
-		self.output = wx.TextCtrl(outputPanel, -1, style=wx.TE_MULTILINE)
+		self.output = wx.TextCtrl(outputPanel, -1, style=wx.TE_MULTILINE|wx.TE_READONLY)
 		outputSizer.Add(outputStatic, 0, wx.TOP|wx.LEFT, 10)
 		outputSizer.Add(self.output, 6, wx.LEFT|wx.BOTTOM|wx.RIGHT|wx.EXPAND, 20)
 
