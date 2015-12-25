@@ -3,7 +3,7 @@
 
 import wx
 
-class main(wx.Frame):
+class mainUI(wx.Frame):
 	def __init__(self, parent, title):
 		super(main, self).__init__(parent, title=title, size=(1000, 800))
 		self.setup()
@@ -63,5 +63,5 @@ class main(wx.Frame):
 
 
 app = wx.App()
-main(None, "Test UI")
+mainUI(None, "Queriet")
 app.MainLoop()
