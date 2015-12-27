@@ -16,3 +16,10 @@ class APIPlugin(object):
 		outputPanel - same as input, but deals with displaying results of a search. Maybe you want a big text field, a picture and a text field, etc etc.
 
 	"""
+
+	def __init__(self):
+		pass #for now
+
+	def list():
+		"""Method that scans for plugins and returns a list"""
+		pass
