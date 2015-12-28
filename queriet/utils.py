@@ -2,7 +2,7 @@
 #Please see the license file in the main directory of this repository for such information
 
 import wx
-def CreateMenuItem(menu, label, position=-1, func):
+def CreateMenuItem(menu, label, func,  position=-1):
 	"""A quick function to add and bind a menu item.
 		This can be used for menubars, system tray icons, etc.
 		Just pass it the menu object in question, a label for your new option, it's position (-1 by default, which appends to end), and a funcion you'd like to bind it to.
