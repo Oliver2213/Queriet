@@ -66,12 +66,12 @@ class mainUI(wx.Frame):
 class SystemTrayIcon(wx.TaskBarIcon):
 	"""Class that implements a system tray icon fir Queriet"""
 
-	def __init__(self, MainUI):
+	def __init__(self, UI):
 		"""This is the initialization for the system tray icon class. It creates the menus for use in CreatePopupMenu, and PopupMenu. It also gets passed the MainUI object so it can call it's methods for menu items."""
 		super(SystemTrayIcon, self).__init__()
-		self.MUI=MainUI
+		self.MUI = UI
 		#Create our menu now, so we can reuse it later
-		self.menu=wx.Menu()
+		self.menu = wx.Menu()
 		utils.CreateMenuItem(self.menu, 'show / hide Queriet', self.MUI.showhide)
 		self.menu.AppendSeparator()
 		utils.CreateMenuItem(self.menu, 'e&xit', self.MUI.Exit())
