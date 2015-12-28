@@ -83,7 +83,7 @@ class mainUI(wx.Frame):
 
 
 class SystemTrayIcon(wx.TaskBarIcon):
-	"""Class that implements a system tray icon fir Queriet"""
+	"""Class that implements a system tray icon for Queriet"""
 
 	def __init__(self, UI, text):
 		"""This is the initialization for the system tray icon class. It creates the menus for use in CreatePopupMenu, and PopupMenu. It also gets passed the MainUI object so it can call it's methods for menu items."""
@@ -96,16 +96,17 @@ class SystemTrayIcon(wx.TaskBarIcon):
 	def CreateMenu(self):
 		#Create our menu now, so we can reuse it later
 		self.menu = wx.Menu()
-		showhide_item = utils.CreateMenuItem(self.menu, 'show / hide Queriet', self.MUI.showhide)
+		self.showhide_item = utils.CreateMenuItem(self.menu, '&show or hide Queriet', self.MUI.showhide)
 		self.menu.AppendSeparator()
-		exit_item = utils.CreateMenuItem(self.menu, 'e&xit', self.MUI.OnClose)
+		self.exit_item = utils.CreateMenuItem(self.menu, 'e&xit', self.MUI.OnClose)
 
 	def CreatePopupMenu(self):
 		"""Show the menu."""
 		self.PopupMenu(self.menu)
 
 	def on_left_down(self, event):
-		self.CreatePopupMenu()
+		"""When the system tray icon is left clicked, show / hide the main interface"""
+		self.MUI.showhide()
 
 	def on_exit(self, event):
 		wx.CallAfter(self.Destroy)
