@@ -9,6 +9,8 @@ class mainUI(wx.Frame):
 	def __init__(self, parent, title):
 		super(mainUI, self).__init__(parent, title=title, size=(1000, 800))
 		self.setup()
+		self.Bind(wx.EVT_CLOSE, self.OnClose)
+		self.CreateIcon()
 		self.Center()
 		self.Show()
 
@@ -63,24 +65,54 @@ class mainUI(wx.Frame):
 		self.outputPanel.SetSizer(self.outputSizer)
 		self.infoPanel.SetSizer(self.infoSizer)
 
+	def CreateIcon(self):
+		"""Creates the system tray icon."""
+		self.icon = SystemTrayIcon(UI=self, text="Queriet")
+
+
+	def showhide(self, event):
+		if self.Shown:
+			self.Hide()
+		else:
+			self.Show()
+
+	def OnClose(self, event):
+		"""Delete system tray icon and this window."""
+		self.icon.Destroy()
+		self.Destroy()
+
+
 class SystemTrayIcon(wx.TaskBarIcon):
 	"""Class that implements a system tray icon fir Queriet"""
 
-	def __init__(self, UI):
+	def __init__(self, UI, text):
 		"""This is the initialization for the system tray icon class. It creates the menus for use in CreatePopupMenu, and PopupMenu. It also gets passed the MainUI object so it can call it's methods for menu items."""
 		super(SystemTrayIcon, self).__init__()
 		self.MUI = UI
+		self.SetIcon(wx.NullIcon, text)
+		self.CreateMenu()
+		self.Bind(wx.EVT_TASKBAR_LEFT_DOWN, self.on_left_down)
+
+	def CreateMenu(self):
 		#Create our menu now, so we can reuse it later
 		self.menu = wx.Menu()
-		utils.CreateMenuItem(self.menu, 'show / hide Queriet', self.MUI.showhide)
+		showhide_item = utils.CreateMenuItem(self.menu, 'show / hide Queriet', self.MUI.showhide)
 		self.menu.AppendSeparator()
-		utils.CreateMenuItem(self.menu, 'e&xit', self.MUI.Exit())
+		exit_item = utils.CreateMenuItem(self.menu, 'e&xit', self.MUI.OnClose)
 
 	def CreatePopupMenu(self):
-		"""Return our menu"""
-		return self.menu
+		"""Show the menu."""
+		self.PopupMenu(self.menu)
+
+	def on_left_down(self, event):
+		self.CreatePopupMenu()
+
+	def on_exit(self, event):
+		wx.CallAfter(self.Destroy)
 
 def test():
 	app = wx.App()
-	mainUI(None, "Queriet")
+	ui = mainUI(None, "Queriet")
 	app.MainLoop()
+
+test()
