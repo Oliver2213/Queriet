@@ -106,7 +106,7 @@ class SystemTrayIcon(wx.TaskBarIcon):
 
 	def on_left_down(self, event):
 		"""When the system tray icon is left clicked, show / hide the main interface"""
-		self.MUI.showhide()
+		self.MUI.showhide(None) # it expects to be passed an event object, so we use none
 
 	def on_exit(self, event):
 		wx.CallAfter(self.Destroy)
