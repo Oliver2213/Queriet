@@ -2,6 +2,7 @@
 #Please see the license file in the main directory for licensing information
 
 import wx
+import utils
 
 class mainUI(wx.Frame):
 	"""Class that holds the main user interface for Queriet"""
@@ -62,9 +63,24 @@ class mainUI(wx.Frame):
 		self.outputPanel.SetSizer(self.outputSizer)
 		self.infoPanel.SetSizer(self.infoSizer)
 
+class SystemTrayIcon(wx.TaskBarIcon):
+	"""Class that implements a system tray icon fir Queriet"""
 
+	def __init__(self, MainUI):
+		"""This is the initialization for the system tray icon class. It creates the menus for use in CreatePopupMenu, and PopupMenu. It also gets passed the MainUI object so it can call it's methods for menu items."""
+		super(SystemTrayIcon, self).__init__()
+		self.MUI=MainUI
+		#Create our menu now, so we can reuse it later
+		self.menu=wx.Menu()
+		utils.CreateMenuItem(self.menu, 'show / hide Queriet', self.MUI.showhide)
+		self.menu.AppendSeparator()
+		utils.CreateMenuItem(self.menu, 'e&xit', self.MUI.Exit())
 
+	def CreatePopupMenu(self):
+		"""Return our menu"""
+		return self.menu
 
-app = wx.App()
-mainUI(None, "Queriet")
-app.MainLoop()
+def test():
+	app = wx.App()
+	mainUI(None, "Queriet")
+	app.MainLoop()
