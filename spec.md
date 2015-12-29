@@ -1,9 +1,24 @@
 #The Queriet application specification
 This is, in general, just a place for the developers of queriet to hash out what, exactly, the application "does", and how it does it. If there is a feature you'd like to see, a suggestion you'd like to make, or general feedback you'd like to contribute about this document, please file an [issue](https://github.com/oliver2213/queriet/issues) or a [pull request](https://github.com/Oliver2213/Queriet/pulls).
 
+##General overview
+
+Queriet (The quick extensible ubiquitous interface enhancement tool), is meant to provide quick access to online resources. Need to look something up on wikipedia quickly? Convert 30 US Dollars to Canadian currency without going to google? Want to look up what a word means iether with a dictionary or the community-powered urban dictionary? Queriet will have you covered. Once things are set up, Queriet will run in the background, waiting for your keypress that launches the interface. The interface will have a few main elements:
+* A list of APIs to choose from. You'll find items such as Wikipedia, Urban Dictionary, Dictionary.com, etc here. What you choose in this list affects where your search gets it's results from.
+* a search field where you can type your query and a search button. Eventually plugins will be able to define their own input panel, so for an API that might require extra information for a specific search, plugins can define items such as check boxes, buttons, radiobuttons, etc. An example of this might be a Github search api, with a search field and radiobuttons allowing you to search users, repositories, issues, etc.
+* A read-only textfield with the results of your search. As with the input panel, plugins will be able to define an output panel with user interface elements. This could allow for say, a list of results, instead of a large read-only text field.
+* A close button, to send the app to the background again.
+
+The app also has a system tray icon that, when left-double clicked, shows or hides the interface, and a right click menu with items such as show/hide, check for updates, open the Queriet site, etc.
+
+###Note
+
+If your a graphic designer or artest, we could really use an icon for Queriet! :p
+
 ##Low-level components
 
-These are various low-level things that need to be in place for a v1.0 release, aka, a working piece of software.
+These are various low-level things that need to be in place for a v1.0 release
+
 * Get a working user interface. API list, basic search box, search button, read-only results field - Done!
 * Get a working tray icon. This is partially done, we have a menu with 2 items, right-click menu support, left double-click show / hide functionality. Things I'd like to add here:
   * An item to check for updates (when implemented)
@@ -14,16 +29,6 @@ These are various low-level things that need to be in place for a v1.0 release, 
 * Create an options dialog
 * Get keyboard hooks working, and create a dialog that allows the user to define his / her own bindings, probably a tab on an options dialog
 * create an update checking system bassed off of the Git Hub releases page for this project. E.G. Compare latest version to current number, if greater retrieve the correct asset's URL, download it, then pop up a balloon telling the user it's done. If we're feeling lazy, use [this updater](http://hg.q-continuum.net/updater/)
-
-##General overview
-
-Queriet (The quick extensible ubiquitous interface enhancement tool), is meant to provide quick access to online resources. Need to look something up on wikipedia quickly? Convert 30 US Dollars to Canadian currency without going to google? Want to look up what a word means iether with a dictionary or the community-powered urban dictionary? Queriet will have you covered. Once things are set up, Queriet will run in the background, waiting for your keypress that launches the interface. The interface will have a few main elements:
-* A list of APIs to choose from. You'll find items such as Wikipedia, Urban Dictionary, Dictionary.com, etc here. What you choose in this list affects where your search gets it's results from.
-* a search field where you can type your query and a search button. Eventually plugins will be able to define their own input panel, so for an API that might require extra information for a specific search, plugins can define items such as check boxes, buttons, radiobuttons, etc. An example of this might be a Github search api, with a search field and radiobuttons allowing you to search users, repositories, issues, etc.
-* A read-only textfield with the results of your search. As with the input panel, plugins will be able to define an output panel with user interface elements. This could allow for say, a list of results, instead of a large read-only text field.
-* A close button, to send the app to the background again.
-
-The app also has a system tray icon that, when left-double clicked, shows or hides the interface. It also has a right click menu with items such as show/hide, check for updates, open the Queriet site, etc.
 
 ##The plugin interface
 
