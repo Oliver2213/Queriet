@@ -9,3 +9,5 @@ This project is in *extreme* alpha, but as it stands now, planned features are:
 * Quick equation solving with sympy
 
 All results will be displayed in the queriet window, with links to external sources for the respective service or site, if applicable.
+
+To view more on Queriet's progress, check out the [specification](/spec.md).
