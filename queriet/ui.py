@@ -111,9 +111,8 @@ class SystemTrayIcon(wx.TaskBarIcon):
 	def on_exit(self, event):
 		wx.CallAfter(self.Destroy)
 
-def test():
+def run():
+	"""Run the main user interface"""
 	app = wx.App()
-	ui = mainUI(None, "Queriet")
+	UI = mainUI(None, "Queriet")
 	app.MainLoop()
-
-test()
