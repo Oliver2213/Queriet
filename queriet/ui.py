@@ -4,10 +4,10 @@
 import wx
 import utils
 
-class mainUI(wx.Frame):
+class MainUI(wx.Frame):
 	"""Class that holds the main user interface for Queriet"""
-	def __init__(self, parent, title):
-		super(mainUI, self).__init__(parent, title=title, size=(1000, 800))
+	def __init__(self, controller, parent, title):
+		super(MainUI, self).__init__(parent, title=title, size=(1000, 800))
 		self.setup()
 		self.Bind(wx.EVT_CLOSE, self.OnClose)
 		self.CreateIcon()
@@ -110,9 +110,3 @@ class SystemTrayIcon(wx.TaskBarIcon):
 
 	def on_exit(self, event):
 		wx.CallAfter(self.Destroy)
-
-def run():
-	"""Run the main user interface"""
-	app = wx.App()
-	UI = mainUI(None, "Queriet")
-	app.MainLoop()
