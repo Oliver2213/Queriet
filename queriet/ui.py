@@ -8,6 +8,7 @@ class MainUI(wx.Frame):
 	"""Class that holds the main user interface for Queriet"""
 	def __init__(self, controller, parent, title):
 		super(MainUI, self).__init__(parent, title=title, size=(1000, 800))
+		self.controller = controller
 		self.setup()
 		self.Bind(wx.EVT_CLOSE, self.OnClose)
 		self.CreateIcon()
