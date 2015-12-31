@@ -11,3 +11,11 @@ This project is in *extreme* alpha, but as it stands now, planned features are:
 All results will be displayed in the queriet window, with links to external sources for the respective service or site, if applicable.
 
 To view more on Queriet's progress, check out the [specification](/spec.md).
+
+##Requirements
+
+To run QUeriet from source, you'll need the following dependencies installed:
+* [WX Python](http://wxpython.org/) for the interface.
+* [Yapsy](http://yapsy.sourceforge.net/) for plugin installation, management, and removal.
+* [Requests](https://github.com/kennethreitz/requests) for http communication, most, if not all, stock plugins will probably use this, other contributed plugins (if we get any once the project works correctly) might want to use requests for easing of specific http implementation, and in general it's a good package to have around.
+* Specific plugins will probably define their own requirements, we'll most likely implement a system for downloading these as needed (plugin activation or plugin installation) for plugins that aren't in the official package.
