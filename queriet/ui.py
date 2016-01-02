@@ -11,14 +11,18 @@ class MainUI(wx.Frame):
 		super(MainUI, self).__init__(parent, title=title, size=(1000, 800))
 		self.controller = controller
 		self.setup()
+		
 		self.Bind(wx.EVT_CLOSE, self.OnClose)
 		self.CreateIcon()
 		self.Center()
 		self.Show()
 
 	def setup(self):
-		"""Sets up the application UI layout"""
+		"""Sets up the application UI layout and manu bar"""
 		self.panel = wx.Panel(self) # the main pannel that children pannels inherit from
+
+		self.menubar = wx.MenuBar()
+		
 
 		#API list
 		self.listPanel = wx.Panel(self.panel)
