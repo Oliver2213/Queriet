@@ -18,7 +18,7 @@ class MainUI(wx.Frame):
 		self.Show()
 
 	def setup(self):
-		"""Sets up the application UI layout and manu bar"""
+		"""Sets up the application UI layout and menu bar"""
 		self.panel = wx.Panel(self) # the main pannel that children pannels inherit from
 
 		self.menubar = wx.MenuBar()
