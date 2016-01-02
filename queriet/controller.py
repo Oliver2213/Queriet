@@ -17,7 +17,7 @@ class Controller(object):
 		"""Sets up our plugin manager and activates all found plugins"""
 		self.pm = PluginHandler.GetPluginManager()
 		self.pm.collectPlugins()
-		for plugin in self.pm.getAllPlugins:
+		for plugin in self.pm.getAllPlugins():
 			self.pm.activatePluginByName(plugin.name)
 
 	def BuildPluginList(self):
