@@ -1,9 +1,10 @@
 #This is the API handler of Queriet
 #Please see the license file in the main directory of this repository for licensing information
 
-import yapsy
+from yapsy.IPlugin import IPlugin
+from yapsy.PluginManager import PluginManager
 
-class Plugin(yapsy.IPlugin.IPlugin):
+class Plugin(IPlugin):
 	"""This class is a template for a plugin. 
 		We use yapsy for plugin management, so you need a basic ini config file with a .queriet-plugin extention, looking something like:
 		[Core]
@@ -20,6 +21,8 @@ class Plugin(yapsy.IPlugin.IPlugin):
 		outputPanel - same as input, but deals with displaying results of a search. Maybe you want a big text field, a picture and a text field, etc etc.
 	"""
 
+	def __init__():
+		pass
 	#Should be the same name as your module name
 	name="no name"
 	def activate():
@@ -36,5 +39,5 @@ class Plugin(yapsy.IPlugin.IPlugin):
 
 def GetPluginManager():
 	"""Returns a plugin manager object, with Queriet-specific settings."""
-	pm=yapsy.PluginManager.PluginManager(directories_list=['plugins'], plugin_info_ext='queriet-plugin')
+	pm=PluginManager(directories_list=['plugins'], plugin_info_ext='queriet-plugin')
 	return pm
