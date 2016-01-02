@@ -7,19 +7,20 @@ import PluginHandler
 
 class Controller(object):
 	def __init__(self, application):
+		"""This method initializes our plugin system, builds a dict of the discovered plugins, maps them to their objects, and setts up our UI"""
 		self.application = application
 		self.setupPlugins()
 		self.BuildPluginList()
 		self.setupUI()
 
-	self.setupPlugins():
+	def setupPlugins(self):
 		"""Sets up our plugin manager and activates all found plugins"""
 		self.pm = PluginHandler.GetPluginManager()
 		self.pm.collectPlugins()
 		for plugin in self.pm.getAllPlugins:
 			self.pm.activatePluginByName(plugin.name)
 
-	def BuildPluginList():
+	def BuildPluginList(self):
 		"""Build, or (re)build, the list of currently activated plugins, and store them in the dict self.plugins, keyed by name."""
 		if self.pm: # we have a plugin manager object
 			self.plugins={}
