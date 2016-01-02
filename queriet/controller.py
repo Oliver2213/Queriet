@@ -8,12 +8,12 @@ import PluginHandler
 class Controller(object):
 	def __init__(self, application):
 		self.application = application
-		self.setup()
+		self.setupPlugins()
 		self.BuildPluginList()
+		self.setupUI()
 
-	def setup(self):
-		"""Create a frame for the main UI and link it to the controller, as well as setting up a plugin handler."""
-		self.ui = MainUI(self, None, "Queriet")
+	self.setupPlugins():
+		"""Sets up our plugin manager and activates all found plugins"""
 		self.pm = PluginHandler.GetPluginManager()
 		self.pm.collectPlugins()
 		for plugin in self.pm.getAllPlugins:
@@ -25,6 +25,10 @@ class Controller(object):
 			self.plugins={}
 			for plugin in self.pm.getAllPlugins():
 				self.plugins[plugin.name]=plugin.plugin_object
+
+	def setupUI(self):
+		"""Create a frame for the main UI and link it to the controller."""
+		self.ui = MainUI(self, None, "Queriet")
 
 	def run(self):
 		"""Begin the main application loop, if applicable."""
