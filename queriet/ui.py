@@ -1,6 +1,7 @@
 #Queriet user interface file
 #Please see the license file in the main directory for licensing information
 
+import os
 import wx
 import utils
 
@@ -77,6 +78,10 @@ class MainUI(wx.Frame):
 		else:
 			self.Show()
 
+	def OpenSite(self, event):
+		"""Opens the Queriet website"""
+		os.startfile('https://github.com/oliver2213/queriet')
+
 	def OnClose(self, event):
 		"""Delete system tray icon and this window."""
 		self.icon.Destroy()
@@ -98,8 +103,9 @@ class SystemTrayIcon(wx.TaskBarIcon):
 		#Create our menu now, so we can reuse it later
 		self.menu = wx.Menu()
 		self.showhide_item = utils.CreateMenuItem(self.menu, '&show or hide Queriet', self.MUI.showhide)
+		self.openSite_item = utils.CreateMenuItem(self.menu, 'Open the Queriet &website', self.MUI.OpenSite)
 		self.menu.AppendSeparator()
-		self.exit_item = utils.CreateMenuItem(self.menu, 'e&xit', self.MUI.OnClose)
+		self.exit_item = utils.CreateMenuItem(self.menu, 'e&xit', self.OnClose)
 
 	def CreatePopupMenu(self):
 		"""Show the menu."""
@@ -109,5 +115,5 @@ class SystemTrayIcon(wx.TaskBarIcon):
 		"""When the system tray icon is left clicked, show / hide the main interface"""
 		self.MUI.showhide(None) # it expects to be passed an event object, so we use none
 
-	def on_exit(self, event):
-		wx.CallAfter(self.Destroy)
+	def OnClose(self, event):
+		wx.CallAfter(self.MUI.controller.close) #Run the top-level close method instead of just the UI's one, so other resources can be released if needed
