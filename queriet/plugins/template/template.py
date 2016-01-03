@@ -1,4 +1,4 @@
-from yapsy.IPlugin import IPlugin
+from PluginHandler import Plugin
 
-class test(IPlugin):
+class template(Plugin):
 	pass
