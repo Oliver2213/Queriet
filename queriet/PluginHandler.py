@@ -9,7 +9,7 @@ class Plugin(IPlugin):
 		We use yapsy for plugin management, so you need a basic ini config file with a .queriet-plugin extention, looking something like:
 		[Core]
 		Name = the API plugin's name. Usually this can be set to the name of the service you want this to handle, such as "wikipedia"
-		Module = your_plugin_filename_without_extentionoes. Usually something like, "Searches twitter for tweets with your searchterm in them", will suffice.
+		Module = your_plugin_filename_without_extentions. Usually something like, "Searches twitter for tweets with your searchterm in them", will suffice.
 		[Documentation]
 		Version = the version of your APIPlugin. Integers only, please.
 		Author = Author(s) of your plugin. E.G. author = some dude <some-dude@dudes.net>, Some Girl <some-girl@girls.net>
