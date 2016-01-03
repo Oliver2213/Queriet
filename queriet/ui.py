@@ -86,13 +86,13 @@ class MainUI(wx.Frame):
 		"""Opens the Queriet website"""
 		os.startfile('https://github.com/oliver2213/queriet')
 
-	def AddPluginsToList()
+	def AddPluginsToList(self):
 		"""This method adds each plugin found in self.controller.plugins to lists that need them, currently only the main listbox.
 			This method gets run each time the plugins list is rebuilt."""
 		if self.apiList.IsEmpty()==False:
 			self.apiList.Clear()
 		for plugin in self.controller.plugins:
-			self.apiList.Append(plugin.name, self.controller
+			self.apiList.Append(plugin.name, plugin)
 
 	def OnClose(self, event):
 		"""Delete system tray icon and this window."""
