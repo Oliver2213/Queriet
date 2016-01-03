@@ -91,8 +91,8 @@ class MainUI(wx.Frame):
 			This method gets run each time the plugins list is rebuilt."""
 		if self.apiList.IsEmpty()==False:
 			self.apiList.Clear()
-		for plugin in self.controller.plugins:
-			self.apiList.Append(plugin.name, plugin)
+		for plugin_name, plugin_object in self.controller.plugins.iteritems():
+			self.apiList.Append(plugin_name, plugin_object)
 
 	def OnClose(self, event):
 		"""Delete system tray icon and this window."""
