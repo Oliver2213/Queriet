@@ -37,7 +37,7 @@ class Plugin(IPlugin):
 	InputPanel=None
 	OutputPanel=None
 
-def GetPluginManager(self):
+def GetPluginManager():
 	"""Returns a plugin manager object, with Queriet-specific settings."""
 	pm=PluginManager(directories_list=['plugins'], plugin_info_ext='queriet-plugin')
 	return pm
