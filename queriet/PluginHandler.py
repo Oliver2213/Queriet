@@ -21,15 +21,15 @@ class Plugin(IPlugin):
 		outputPanel - same as input, but deals with displaying results of a search. Maybe you want a big text field, a picture and a text field, etc etc.
 	"""
 
-	def __init__():
+	def __init__(self):
 		pass
 	#Should be the same name as your module name
 	name="no name"
-	def activate():
+	def activate(self):
 		"""Your plugin should run any code necessary to get ready to deal with searches or other operations your plugins do. Bind hotkeys, authorize to an API, whatever."""
 		pass
 
-	def deactivate():
+	def deactivate(self):
 		"""Your plugin needs to release any resources it may have acquired, unbind any hotkeys, clear any caches, etc..."""
 		pass
 
@@ -37,7 +37,7 @@ class Plugin(IPlugin):
 	InputPanel=None
 	OutputPanel=None
 
-def GetPluginManager():
+def GetPluginManager(self):
 	"""Returns a plugin manager object, with Queriet-specific settings."""
 	pm=PluginManager(directories_list=['plugins'], plugin_info_ext='queriet-plugin')
 	return pm
