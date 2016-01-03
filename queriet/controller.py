@@ -22,7 +22,7 @@ class Controller(object):
 
 	def BuildPluginList(self):
 		"""Build, or (re)build, the list of currently activated plugins, and store them in the dict self.plugins, keyed by name."""
-		if not pm:
+		if not self.pm:
 			self.SetupPlugins()
 		if self.pm: # we have a plugin manager object
 			self.plugins={}
