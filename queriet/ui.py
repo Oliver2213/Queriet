@@ -21,7 +21,7 @@ class MainUI(wx.Frame):
 		"""Sets up the application UI layout and menu bar"""
 		self.panel = wx.Panel(self) # the main pannel that children pannels inherit from
 
-		self.menubar = wx.MenuBar()
+		self.MenuBar = wx.MenuBar()
 		
 
 		#API list
