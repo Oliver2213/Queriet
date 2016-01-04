@@ -60,6 +60,12 @@ class Plugin(IPlugin):
 		if self.OutputPanel:
 			self.OutputPanel.on_lose_focus()
 
+	def Activate(self):
+		pas
+
+	def Deactivate(self):
+		pass
+
 
 class pluginPanel(wx.Panel):
 	"""The template for a plugin panel.

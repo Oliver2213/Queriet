@@ -13,7 +13,7 @@ class MainUI(wx.Frame):
 		super(MainUI, self).__init__(parent, title=title, size=(1000, 800))
 		self.controller = controller
 		self.setup()
-		self.Bind(wx.EVT_CLOSE, self.OnClose)
+		self.Bind(wx.EVT_CLOSE, self.controller.OnClose)
 		self.CreateIcon()
 		self.Center()
 		self.Show()
@@ -147,7 +147,7 @@ class SystemTrayIcon(wx.TaskBarIcon):
 		self.showhide_item = utils.CreateMenuItem(self.menu, '&show or hide Queriet', self.MUI.showhide)
 		self.openSite_item = utils.CreateMenuItem(self.menu, 'Open the Queriet &website', self.MUI.OpenSite)
 		self.menu.AppendSeparator()
-		self.exit_item = utils.CreateMenuItem(self.menu, 'e&xit', self.OnClose)
+		self.exit_item = utils.CreateMenuItem(self.menu, 'e&xit', self.MUI.controller.OnClose)
 
 	def CreatePopupMenu(self):
 		"""Show the menu."""

@@ -40,7 +40,7 @@ class Controller(object):
 	def ShutdownPlugins(self):
 		"""This method goes through and calls the Deactivate method of each plugin.
 			This allows them to *properly* release any resources they have, stop any threads, close any sockets, write and close to any files, etc."""
-		for plugin in self.plugins:
+		for plugin in self.plugins.itervalues():
 			plugin.Deactivate()
 
 	def run(self):
@@ -48,7 +48,7 @@ class Controller(object):
 		if self.ui:
 			self.application.MainLoop()
 
-	def close(self):
+	def OnClose(self, event):
 		"""This method is meant to kick off the process of exiting Queriet. 
 			All menu items, exit buttons, etc, should come here first to start a top-down exit"""
 		if self.ui:
