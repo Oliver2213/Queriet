@@ -1,6 +1,7 @@
 #This is the API handler of Queriet
 #Please see the license file in the main directory of this repository for licensing information
 
+import wx
 from yapsy.IPlugin import IPlugin
 from yapsy.PluginManager import PluginManager
 
@@ -22,9 +23,12 @@ class Plugin(IPlugin):
 	"""
 
 	def __init__(self):
-		pass
+		self.InputPanel = None
+		self.OutputPanel = None
+
 	#Should be the same name as your module name
 	name="no name"
+
 	def activate(self):
 		"""Your plugin should run any code necessary to get ready to deal with searches or other operations your plugins do. Bind hotkeys, authorize to an API, whatever."""
 		pass
@@ -34,8 +38,18 @@ class Plugin(IPlugin):
 		pass
 
 	#The input and output panels are None by default, redefine them in your plugin to have the main UI use them
-	InputPanel=None
-	OutputPanel=None
+
+class pluginPanel(wx.Panel):
+	"""The template for a plugin panel.
+	
+	An input or output panel for a plugin must have the following:
+	- An on_gain_focus and on_lose_focus method. These will instantiate and change whatever they need to for the panels when they gain and lose focus when plugins change, respectively."""
+
+	def on_gain_focus(self):
+		pass
+
+	def on_lose_focus(self):
+		pass
 
 def GetPluginManager():
 	"""Returns a plugin manager object, with Queriet-specific settings."""
