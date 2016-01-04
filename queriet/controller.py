@@ -28,6 +28,8 @@ class Controller(object):
 			self.plugins={}
 			for plugin in self.pm.getAllPlugins():
 				self.plugins[plugin.name]=plugin.plugin_object
+				plugin.plugin_object.SetController(self)
+				plugin.plugin_object.setup()
 			if self.ui:
 				self.ui.AddPluginsToList()
 

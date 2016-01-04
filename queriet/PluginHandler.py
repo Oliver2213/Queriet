@@ -26,8 +26,11 @@ class Plugin(IPlugin):
 		self.InputPanel = None
 		self.OutputPanel = None
 
-	#Should be the same name as your module name
-	name="no name"
+	def SetController(self, controller):
+		self.controller = controller
+
+	def setup(self):
+		pass
 
 	def activate(self):
 		"""Your plugin should run any code necessary to get ready to deal with searches or other operations your plugins do. Bind hotkeys, authorize to an API, whatever."""
@@ -37,7 +40,18 @@ class Plugin(IPlugin):
 		"""Your plugin needs to release any resources it may have acquired, unbind any hotkeys, clear any caches, etc..."""
 		pass
 
-	#The input and output panels are None by default, redefine them in your plugin to have the main UI use them
+	def on_gain_focus(self):
+		if self.InputPanel:
+			self.InputPanel.on_gain_focus()
+		if self.OutputPanel:
+			self.OutputPanel.on_gain_focus()
+
+	def on_lose_focus(self):
+		if self.InputPanel:
+			self.InputPanel.on_lose_focus()
+		if self.OutputPanel:
+			self.OutputPanel.on_lose_focus()
+
 
 class pluginPanel(wx.Panel):
 	"""The template for a plugin panel.

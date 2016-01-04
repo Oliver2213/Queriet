@@ -21,6 +21,8 @@ class MainUI(wx.Frame):
 	def setup(self):
 		"""Sets up the application UI layout and menu bar"""
 
+		self.CurrentPlugin = None
+		self.CurrentPluginNumber = -1
 		self.input = None
 		self.output = None
 		self.panel = wx.Panel(self) # the main pannel that children pannels inherit from
@@ -34,6 +36,7 @@ class MainUI(wx.Frame):
 		self.apiStatic = wx.StaticText(self.listPanel, -1, 'API') #A label for our listview
 		self.listSizer.Add(self.apiStatic, 1, wx.TOP | wx.BOTTOM | wx.LEFT, 5) # adding this label to our api sizer
 		self.apiList = wx.ListBox(self.listPanel, -1) #create the actual list
+		self.apiList.Bind(wx.EVT_LISTBOX, self.OnListChange)
 		self.listSizer.Add(self.apiList, 1, wx.EXPAND | wx.ALL, 20) #Add it to the list sizer
 
 		#Info panel, holds input and output pannels
@@ -65,6 +68,11 @@ class MainUI(wx.Frame):
 		if self.infoSizer.GetChildren():
 			self.infoSizer.Clear()
 
+		if not input:
+			input = self.DefaultInput
+		if not output:
+			output = self.DefaultOutput
+
 		self.input = input
 		self.output = output
 		self.infoSizer.Add(input, 1, wx.TOP|wx.LEFT|wx.RIGHT, 20)
@@ -78,6 +86,19 @@ class MainUI(wx.Frame):
 		"""Creates the system tray icon."""
 		self.icon = SystemTrayIcon(UI=self, text="Queriet")
 
+	def SetFocus(self, value):
+		"""Change the displayed UI to that of the selected plugin. Do not pass this function a value less than 0."""
+		if value<0 or value == self.CurrentPluginNumber:
+			return
+		plugin = self.controller.plugins[self.apiList.GetString(value)]
+		if not plugin:
+			return
+		if self.CurrentPlugin:
+			self.CurrentPlugin.on_lose_focus()
+		self.CurrentPlugin = plugin
+		self.CurrentPluginNumber = value
+		self.SetPanels(plugin.InputPanel, plugin.OutputPanel)
+		plugin.on_gain_focus()
 
 	def showhide(self, event):
 		if self.Shown:
@@ -96,6 +117,12 @@ class MainUI(wx.Frame):
 			self.apiList.Clear()
 		for plugin_name, plugin_object in self.controller.plugins.iteritems():
 			self.apiList.Append(plugin_name, plugin_object)
+
+	def OnListChange(self, event):
+		sel = self.apiList.GetSelection()
+		if sel < 0:
+			return
+		self.SetFocus(sel)
 
 	def OnClose(self, event):
 		"""Delete system tray icon and this window."""
