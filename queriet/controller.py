@@ -24,7 +24,7 @@ class Controller(object):
 		self.pm.collectPlugins()
 		self.log.debug("Activating collected plugins.")
 		for plugin in self.pm.getAllPlugins():
-			self.log.debug("Activating plugin %s" %(plugin))
+			self.log.debug("Activating plugin %s, version %s, by %s" %(plugin.name, plugin.version, plugin.author))
 			try:
 				self.pm.activatePluginByName(plugin.name)
 			except:
@@ -32,31 +32,51 @@ class Controller(object):
 
 	def BuildPluginList(self):
 		"""Build, or (re)build, the list of currently activated plugins, and store them in the dict self.plugins, keyed by name."""
+		self.log.debug("Building the list of available plugins...")
 		if not self.pm:
+			self.log.warning("Tried to build a list of plugins, but no plugin manager object found, obtaining one.")
 			self.SetupPlugins()
 		if self.pm: # we have a plugin manager object
 			self.plugins={}
 			for plugin in self.pm.getAllPlugins():
 				self.plugins[plugin.name]=plugin.plugin_object
-				plugin.plugin_object.SetController(self)
-				plugin.plugin_object.setup()
+				self.log.debug("Added plugin %s " %(plugin.name))
+				try:
+					plugin.plugin_object.SetController(self)
+				except: 
+					self.log.exception("Unable to pass a controller instance to plugin %s" %(name))
+				try:
+					plugin.plugin_object.setup()
+				except:
+					self.log.exception("Error when setting up plugin %s" %(plugin.name))
 			if self.ui:
 				self.ui.AddPluginsToList()
+			else:
+				self.log.warning("Built plugins list, but no UI object was found, so not adding them to the UI listbox.")
 
 	def SetupUI(self):
 		"""Create a frame for the main UI and link it to the controller."""
-		self.ui = MainUI(self, None, "Queriet")
+		try:
+			self.ui = MainUI(self, None, "Queriet")
+		except:
+			self.log.exception("Error creating main interface!")
 
 	def ShutdownPlugins(self):
 		"""This method goes through and calls the Deactivate method of each plugin.
 			This allows them to *properly* release any resources they have, stop any threads, close any sockets, write and close to any files, etc."""
 		for plugin in self.plugins.itervalues():
-			plugin.Deactivate()
+			try:
+				plugin.Deactivate()
+			except:
+				self.log.exception("Error deactivating plugin %s" %(plugin.name))
 
 	def run(self):
 		"""Begin the main application loop, if applicable."""
 		if self.ui:
 			self.application.MainLoop()
+			self.log.debug("Started main app loop.")
+		else:
+			self.log.error("No user interface found, can not start app main loop!")
 
 	def OnClose(self, event):
 		"""This method is meant to kick off the process of exiting Queriet. 
