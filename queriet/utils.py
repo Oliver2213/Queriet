@@ -25,6 +25,7 @@ def SetupLogging():
 		They will then be able to send messages and exception info as needed, to log.debug, log.info, log.warning, log.error, log.critical.
 	"""
 	log = logging.getLogger(__name__) # get a logging object named with the current module running this
+	log.setLevel(logging.DEBUG)
 	#Define a standard log output format
 	LogFormat = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
 	#Our stream and file handlers
