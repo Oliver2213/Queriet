@@ -9,8 +9,7 @@ import logging
 class Controller(object):
 	def __init__(self, application):
 		"""This method initializes our plugin system, builds a dict of the discovered plugins, maps them to their objects, and setts up our UI"""
-		self.log = logging.getLogger(__name__)
-		self.log.setLevel(logging.DEBUG)
+		self.log = logging.getLogger('Queriet.controller')
 		self.log.debug("Starting initialization.")
 		self.application = application
 		self.SetupPlugins() # Get a plugin manager object and activate all found plugins

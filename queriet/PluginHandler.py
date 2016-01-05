@@ -6,8 +6,7 @@ import logging
 from yapsy.IPlugin import IPlugin
 from yapsy.PluginManager import PluginManager
 
-log = logging.getLogger(__name__)
-log.setLevel(logging.DEBUG)
+log = logging.getLogger('Queriet.'+__name__)
 
 class Plugin(IPlugin):
 	"""This class is a template for a plugin. 

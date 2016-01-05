@@ -21,7 +21,7 @@ def SetupLogging(caller):
 	"""This method should only be ran once, from main.py.
 		After that, all modules simply need to:
 		import logging,
-		log = logging.getLogger(__main__)
+		log = logging.getLogger(__name__)
 		They will then be able to send messages and exception info as needed, to log.debug, log.info, log.warning, log.error, log.critical.
 		Note: this function accepts the name of the caller as an arg, as for some reason it appears that, even if said caller imports this function specifically from utils, the __name__ attribute isn't that of the caller
 	"""
