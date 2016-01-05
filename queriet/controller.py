@@ -4,21 +4,32 @@
 
 from ui import MainUI
 import PluginHandler
+import logging
 
 class Controller(object):
 	def __init__(self, application):
 		"""This method initializes our plugin system, builds a dict of the discovered plugins, maps them to their objects, and setts up our UI"""
+		self.log = logging.getLogger(__name__)
+		self.log.setLevel(logging.DEBUG)
+		self.log.debug("Starting initialization.")
 		self.application = application
 		self.SetupPlugins() # Get a plugin manager object and activate all found plugins
 		self.SetupUI()
 		self.BuildPluginList()
+		self.log.info("Controller initialized.")
 
 	def SetupPlugins(self):
 		"""Sets up our plugin manager and activates all found plugins"""
+		self.log.debug("Setting up plugins...")
 		self.pm = PluginHandler.GetPluginManager()
 		self.pm.collectPlugins()
+		self.log.debug("Activating collected plugins.")
 		for plugin in self.pm.getAllPlugins():
-			self.pm.activatePluginByName(plugin.name)
+			self.log.debug("Activating plugin %s" %(plugin))
+			try:
+				self.pm.activatePluginByName(plugin.name)
+			except:
+				logging.exception("Loading plugin %s failed!" %(plugin))
 
 	def BuildPluginList(self):
 		"""Build, or (re)build, the list of currently activated plugins, and store them in the dict self.plugins, keyed by name."""

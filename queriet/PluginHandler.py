@@ -2,8 +2,12 @@
 #Please see the license file in the main directory of this repository for licensing information
 
 import wx
+import logging
 from yapsy.IPlugin import IPlugin
 from yapsy.PluginManager import PluginManager
+
+log = logging.getLogger(__name__)
+log.setLevel(logging.DEBUG)
 
 class Plugin(IPlugin):
 	"""This class is a template for a plugin. 
@@ -83,5 +87,7 @@ class pluginPanel(wx.Panel):
 
 def GetPluginManager():
 	"""Returns a plugin manager object, with Queriet-specific settings."""
+	log.debug("Obtaining a plugin manager...")
 	pm=PluginManager(directories_list=['plugins'], plugin_info_ext='queriet-plugin')
+	log.debug("Done! Plugin manager at %s" %(pm))
 	return pm
