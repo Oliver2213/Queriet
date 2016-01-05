@@ -64,7 +64,7 @@ class Plugin(IPlugin):
 			self.OutputPanel.on_lose_focus()
 
 	def Activate(self):
-		pas
+		pass
 
 	def Deactivate(self):
 		pass
