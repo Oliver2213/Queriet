@@ -1,7 +1,9 @@
 #Utility functions for Queriet
 #Please see the license file in the main directory of this repository for such information
 
+import logging
 import wx
+
 def CreateMenuItem(menu, label, func,  position=-1):
 	"""A quick function to add and bind a menu item.
 		This can be used for menubars, system tray icons, etc.
@@ -14,3 +16,25 @@ def CreateMenuItem(menu, label, func,  position=-1):
 	menu.Bind(wx.EVT_MENU, func, id=item.GetId())
 	menu.AppendItem(item)
 	return item
+
+def SetupLogging():
+	"""This method should only be ran once, from main.py.
+		After that, all modules simply need to:
+		import logging,
+		log = logging.getLogger(__main__)
+		They will then be able to send messages and exception info as needed, to log.debug, log.info, log.warning, log.error, log.critical.
+	"""
+	log = logging.getLogger(__name__) # get a logging object named with the current module running this
+	#Define a standard log output format
+	LogFormat = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
+	#Our stream and file handlers
+	ConsoleHandler = logging.StreamHandler()
+	ConsoleHandler.setLevel(logging.DEBUG)
+	ConsoleHandler.setFormatter(LogFormat)
+	FileHandler = logging.FileHandler('Queriet.log')
+	FileHandler.setLevel(logging.DEBUG)
+	FileHandler.setFormatter(LogFormat)
+	log.addHandler(ConsoleHandler)
+	log.addHandler(FileHandler)
+	#Return our log object to caller, so it can use it
+	return log

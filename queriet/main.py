@@ -5,19 +5,17 @@ __version__=0.1
 __author__='Blake Oliver <oliver22213@me.com>, Bradley Renshaw <bradjrenshaw@gmail.com>'
 
 import logging
+from utils import SetupLogging
 import wx
 from controller import Controller
 
-log = logging.getLogger(__name__)
-LogFormat = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
-ConsoleHandler = logging.StreamHandler()
-ConsoleHandler.setLevel(logging.DEBUG)
-ConsoleHandler.setFormatter(formatter)
-FileHandler = logging.FileHandler('Queriet.log')
-FileHandler.setLevel(logging.DEBUG)
-FileHandler.setFormatter(LogFormat)
-log.addHandler(ConsoleHandler)
-log.addHandler(FileHandler)
+log = SetupLogging()
+
+log.debug("Queriet, version %s starting up" %(__version__))
+log.debug("Obtaining WX app object for UI")
 app = wx.App()
+log.debug("Done")
+log.debug("Instantiating main controller")
 MainController = Controller(app)
+log.debug("Done, starting main controller")
 MainController.run()
