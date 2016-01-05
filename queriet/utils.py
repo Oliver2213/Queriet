@@ -17,14 +17,15 @@ def CreateMenuItem(menu, label, func,  position=-1):
 	menu.AppendItem(item)
 	return item
 
-def SetupLogging():
+def SetupLogging(caller):
 	"""This method should only be ran once, from main.py.
 		After that, all modules simply need to:
 		import logging,
 		log = logging.getLogger(__main__)
 		They will then be able to send messages and exception info as needed, to log.debug, log.info, log.warning, log.error, log.critical.
+		Note: this function accepts the name of the caller as an arg, as for some reason it appears that, even if said caller imports this function specifically from utils, the __name__ attribute isn't that of the caller
 	"""
-	log = logging.getLogger(__name__) # get a logging object named with the current module running this
+	log = logging.getLogger(caller) # get a logging object named with the current module running this
 	log.setLevel(logging.DEBUG)
 	#Define a standard log output format
 	LogFormat = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')

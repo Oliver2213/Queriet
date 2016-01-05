@@ -9,7 +9,7 @@ from utils import SetupLogging
 import wx
 from controller import Controller
 
-log = SetupLogging()
+log = SetupLogging(__name__)
 
 log.debug("Queriet, version %s starting up" %(__version__))
 log.debug("Obtaining WX app object for UI")
