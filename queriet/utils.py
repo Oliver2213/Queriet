@@ -27,6 +27,7 @@ def SetupLogging(caller):
 	"""
 	log = logging.getLogger(caller) # get a logging object named with the current module running this
 	log.setLevel(logging.DEBUG)
+	YapsyLog = logging.getLogger('yapsy')
 	#Define a standard log output format
 	LogFormat = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
 	#Our stream and file handlers
@@ -38,5 +39,7 @@ def SetupLogging(caller):
 	FileHandler.setFormatter(LogFormat)
 	log.addHandler(ConsoleHandler)
 	log.addHandler(FileHandler)
+	YapsyLog.addHandler(ConsoleHandler)
+	YapsyLog.addHandler(FileHandler)
 	#Return our log object to caller, so it can use it
 	return log

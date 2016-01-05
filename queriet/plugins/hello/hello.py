@@ -1,11 +1,11 @@
 import wx
 import PluginHandler
-#import logging
+import logging
 
 class hello(PluginHandler.Plugin):
-	def __init__():
-		Super(hello, self).__init__()
-		#self.log = logging.getLogger('Queriet.plugin'__class__)
+	def __init__(self):
+		super(hello, self).__init__()
+		self.log = logging.getLogger('Queriet.plugin'+__name__)
 		#print (__class__)
 
 	def setup(self):
