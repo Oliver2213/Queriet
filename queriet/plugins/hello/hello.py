@@ -6,7 +6,7 @@ class hello(PluginHandler.Plugin):
 	def __init__(self):
 		super(hello, self).__init__()
 		self.log = logging.getLogger('Queriet.plugin'+__name__)
-		#print (__class__)
+		self.name = 'hello'
 
 	def setup(self):
 		self.log.debug("RUnning setup.")

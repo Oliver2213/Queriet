@@ -30,7 +30,7 @@ class Controller(object):
 			try:
 				self.pm.activatePluginByName(plugin.name)
 			except:
-				logging.exception("Loading plugin %s failed!" %(plugin))
+				logging.exception("Loading plugin '%s' failed!" %(plugin))
 
 	def BuildPluginList(self):
 		"""Build, or (re)build, the list of currently activated plugins, and store them in the dict self.plugins, keyed by name."""
@@ -41,16 +41,19 @@ class Controller(object):
 		if self.pm: # we have a plugin manager object
 			self.plugins={}
 			for plugin in self.pm.getAllPlugins():
-				self.plugins[plugin.name]=plugin.plugin_object
+				#The plugins dict is keyed by the plugin's info object, with the value being the instantiated plugin
+				#This, however, is just an abstraction over the yapsy layer. We can use the iteration "plugin" object, which is really a yapsy info object, to get variable plugin info, like name, author, version, etc
+				self.plugins[plugin]=plugin.plugin_object
 				self.log.debug("Added plugin %s " %(plugin.name))
 				try:
 					plugin.plugin_object.SetController(self)
 				except: 
-					self.log.exception("Unable to pass a controller instance to plugin %s" %(name))
+					self.log.exception("Unable to pass a controller instance to plugin '%s'" %(plugin.name))
 				try:
 					plugin.plugin_object.setup()
 				except:
-					self.log.exception("Error when setting up plugin %s" %(plugin.name))
+					self.log.exception("Error when setting up plugin '%s'" %(plugin.name))
+			self.log.debug("%d total plugins added to plugins dictionary." %(len(self.plugins)))
 			if self.ui:
 				self.ui.AddPluginsToList()
 			else:
@@ -73,11 +76,13 @@ class Controller(object):
 	def ShutdownPlugins(self):
 		"""This method goes through and calls the Deactivate method of each plugin.
 			This allows them to *properly* release any resources they have, stop any threads, close any sockets, write and close to any files, etc."""
-		for plugin in self.plugins.itervalues():
+		#We need both the plugin_info and plugin_object, to make logging calls 
+		for plugin_info, plugin_object in self.plugins.iteritems():
 			try:
-				plugin.Deactivate()
+				self.log.debug("Deactivating plugin '%s'" %(plugin_info.name))
+				plugin_object.Deactivate()
 			except:
-				self.log.exception("Error deactivating plugin %s" %(plugin.name))
+				self.log.exception("Error deactivating plugin '%s'" %(plugin_info.name))
 
 	def run(self):
 		"""Begin the main application loop, if applicable."""
@@ -90,8 +95,11 @@ class Controller(object):
 	def OnClose(self, event):
 		"""This method is meant to kick off the process of exiting Queriet. 
 			All menu items, exit buttons, etc, should come here first to start a top-down exit"""
+		self.log.info("Queriet starting shutdown.")
 		if self.ui:
+			self.log.debug("Closing UI.")
 			self.ui.OnClose(None)
 		if self.pm:
+			self.log.debug("Deactivating all plugins.")
 			self.ShutdownPlugins()
 
