@@ -73,8 +73,8 @@ class Controller(object):
 	def run(self):
 		"""Begin the main application loop, if applicable."""
 		if self.ui:
-			self.application.MainLoop()
 			self.log.debug("Started main app loop.")
+			self.application.MainLoop()
 		else:
 			self.log.error("No user interface found, can not start app main loop!")
 
