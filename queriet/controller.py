@@ -28,7 +28,7 @@ class Controller(object):
 			try:
 				self.pm.activatePluginByName(plugin.name)
 			except:
-				logging.exception("Loading plugin %s failed!" %(plugin))
+				logging.exception("Loading plugin '%s' failed!" %(plugin))
 
 	def BuildPluginList(self):
 		"""Build, or (re)build, the list of currently activated plugins, and store them in the dict self.plugins, keyed by name."""
