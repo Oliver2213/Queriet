@@ -100,7 +100,7 @@ class MainUI(wx.Frame):
 		self.SetPanels(plugin.InputPanel, plugin.OutputPanel)
 		plugin.on_gain_focus()
 
-	def showhide(self, event):
+	def showhide(self, event=None):
 		if self.Shown:
 			self.Hide()
 		else:
