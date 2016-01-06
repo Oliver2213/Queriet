@@ -109,4 +109,10 @@ class Controller(object):
 		if self.pm:
 			self.log.debug("Deactivating all plugins.")
 			self.ShutdownPlugins()
+		if self.keyhandler:
+			self.log.debug("Unregistering all keybindings.")
+			try:
+				self.UnregisterAllKeys()
+			except:
+				self.log.exception("Error when unregistering keybindings!")
 
