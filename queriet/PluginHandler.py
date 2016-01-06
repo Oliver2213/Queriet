@@ -26,8 +26,13 @@ class Plugin(IPlugin):
 	"""
 
 	def __init__(self):
+		"""Method that initializes a plugin, but does not 'activate'
+			Make sure you 'super' this method, as it also gets a logging object, so you can use like
+				self.log.debug('test")
+			later on in your plugin."""
 		self.InputPanel = None
 		self.OutputPanel = None
+		self.log = logging.getLogger('Queriet.plugin.'+self.name)
 
 	def SetController(self, controller):
 		self.controller = controller
@@ -36,7 +41,7 @@ class Plugin(IPlugin):
 		"""This would be a good place to assign your InputPanel and OutputPanels, if your using either of these"""
 		pass
 
-	def activate(self):
+	def Activate(self):
 		"""Your plugin should run any code necessary to get ready to deal with searches or other operations your plugins do. Bind hotkeys, authorize to an API, whatever."""
 		pass
 
@@ -63,11 +68,6 @@ class Plugin(IPlugin):
 		if self.OutputPanel:
 			self.OutputPanel.on_lose_focus()
 
-	def Activate(self):
-		pass
-
-	def Deactivate(self):
-		pass
 
 
 class pluginPanel(wx.Panel):

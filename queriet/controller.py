@@ -43,7 +43,10 @@ class Controller(object):
 			for plugin in self.pm.getAllPlugins():
 				#The plugins dict is keyed by the plugin's info object, with the value being the instantiated plugin
 				#This, however, is just an abstraction over the yapsy layer. We can use the iteration "plugin" object, which is really a yapsy info object, to get variable plugin info, like name, author, version, etc
+				#We also use the info object to give the plugin's class attributes from it's metadata file
 				self.plugins[plugin]=plugin.plugin_object
+				plugin.plugin_object.name = plugin.name
+				plugin.plugin_object.version = plugin.version
 				self.log.debug("Added plugin %s " %(plugin.name))
 				try:
 					plugin.plugin_object.SetController(self)
