@@ -67,12 +67,18 @@ class Controller(object):
 			self.log.exception("Error creating main interface!")
 
 	def SetupKeyhooks(self):
-		"""Gets a keyhandler object, and binds the main show / hide key for Queriet."""
+		"""Gets a keyhandler object, creates local (controller) methods that point to keyhandler ones, and binds the main show / hide key for Queriet."""
 		self.keyhandler = WXKeyboardHandler(self.ui)
-		self.register_key('win+q', self.ui.showhide)
+		#Make local pointers to keyhandler methods
+		self.RegisterKey = self.keyhandler.register_key
+		self.UnRegisterKey = self.keyhandler.unregister_key
+		self.UnregisterAllKeys = self.keyhandler.unregister_all_keys
+		self.RegisterKeys = self.keyhandler.register_keys
+		self.UnregisterKeys = self.keyhandler.unregister_keys
+		self.RegisterKey('win+q', self.ui.showhide)
 
-	def register_key(self, key, func):
-		self.keyhandler.register_key(key, func)
+	#def register_key(self, key, func):
+		#self.keyhandler.register_key(key, func)
 
 	def ShutdownPlugins(self):
 		"""This method goes through and calls the Deactivate method of each plugin.
