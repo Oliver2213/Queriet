@@ -2,6 +2,7 @@
 #For licensing info, please see the "license" file in the main directory of this repository
 #This file handles overall Queriet operations
 
+from keyboard_handler.wx_handler import WXKeyboardHandler
 from ui import MainUI
 import PluginHandler
 import logging
@@ -14,6 +15,7 @@ class Controller(object):
 		self.application = application
 		self.SetupPlugins() # Get a plugin manager object and activate all found plugins
 		self.SetupUI()
+		self.SetupKeyhooks()
 		self.BuildPluginList()
 		self.log.info("Controller initialized.")
 
@@ -60,6 +62,13 @@ class Controller(object):
 			self.ui = MainUI(self, None, "Queriet")
 		except:
 			self.log.exception("Error creating main interface!")
+
+	def SetupKeyhooks(self):
+		self.keyhandler = WXKeyboardHandler(self.ui)
+		self.register_key('control+win+q', self.ui.showhide)
+
+	def register_key(self, key, func):
+		self.keyhandler.register_key(key, func)
 
 	def ShutdownPlugins(self):
 		"""This method goes through and calls the Deactivate method of each plugin.
