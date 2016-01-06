@@ -66,6 +66,7 @@ class Controller(object):
 			This allows them to *properly* release any resources they have, stop any threads, close any sockets, write and close to any files, etc."""
 		for plugin in self.plugins.itervalues():
 			try:
+				self.log.debug("Deactivating plugin '%s'" %(plugin.name))
 				plugin.Deactivate()
 			except:
 				self.log.exception("Error deactivating plugin %s" %(plugin.name))
@@ -81,8 +82,11 @@ class Controller(object):
 	def OnClose(self, event):
 		"""This method is meant to kick off the process of exiting Queriet. 
 			All menu items, exit buttons, etc, should come here first to start a top-down exit"""
+		self.log.info("Queriet starting shutdown.")
 		if self.ui:
+			self.log.debug("Closing UI.")
 			self.ui.OnClose(None)
 		if self.pm:
+			self.log.debug("Deactivating all plugins.")
 			self.ShutdownPlugins()
 
