@@ -90,7 +90,8 @@ class MainUI(wx.Frame):
 		"""Change the displayed UI to that of the selected plugin. Do not pass this function a value less than 0."""
 		if value<0 or value == self.CurrentPluginNumber:
 			return
-		plugin = self.controller.plugins[self.apiList.GetString(value)]
+		plugin = self.apiList.GetClientData(self.apiList.GetSelection())
+#		plugin = self.controller.plugins[self.apiList.GetString(value)]
 		if not plugin:
 			return
 		if self.CurrentPlugin:
@@ -115,8 +116,8 @@ class MainUI(wx.Frame):
 			This method gets run each time the plugins list is rebuilt."""
 		if self.apiList.IsEmpty()==False:
 			self.apiList.Clear()
-		for plugin_name, plugin_object in self.controller.plugins.iteritems():
-			self.apiList.Append(plugin_name, plugin_object)
+		for plugin_info, plugin_object in self.controller.plugins.iteritems():
+			self.apiList.Append(plugin_info.name, plugin_object)
 
 	def OnListChange(self, event):
 		sel = self.apiList.GetSelection()
