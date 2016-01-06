@@ -67,8 +67,9 @@ class Controller(object):
 			self.log.exception("Error creating main interface!")
 
 	def SetupKeyhooks(self):
+		"""Gets a keyhandler object, and binds the main show / hide key for Queriet."""
 		self.keyhandler = WXKeyboardHandler(self.ui)
-		self.register_key('control+win+q', self.ui.showhide)
+		self.register_key('win+q', self.ui.showhide)
 
 	def register_key(self, key, func):
 		self.keyhandler.register_key(key, func)
