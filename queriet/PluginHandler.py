@@ -35,7 +35,13 @@ class Plugin(IPlugin):
 		self.log = logging.getLogger('Queriet.plugin.'+self.name)
 
 	def SetController(self, controller):
+		"""Best not to redefine this, it runs when the plugin is passed a pointer to the main controller, saving it to self.controller.
+			It also creates local pointers to RegisterKey, and UnRegisterKey so plugins can create keybindings to functions.
+			Note that any functions that will be called by a hotkey need to have an "event" argument, and can't take any others.
+		"""
 		self.controller = controller
+		self.RegisterKey = self.controller.RegisterKey
+		self.UnregisterKey = self.controller.UnRegisterKey
 
 	def setup(self):
 		"""This would be a good place to assign your InputPanel and OutputPanels, if your using either of these"""
