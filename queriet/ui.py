@@ -4,7 +4,6 @@
 import os
 import wx
 import utils
-from defaultPanels import inputPanel, outputPanel
 
 
 class MainUI(wx.Frame):
@@ -23,8 +22,7 @@ class MainUI(wx.Frame):
 
 		self.CurrentPlugin = None
 		self.CurrentPluginNumber = -1
-		self.input = None
-		self.output = None
+		self.InfoPanel = None
 		self.panel = wx.Panel(self) # the main pannel that children pannels inherit from
 
 		self.MenuBar = wx.MenuBar()
@@ -37,49 +35,26 @@ class MainUI(wx.Frame):
 		self.listSizer.Add(self.apiStatic, 1, wx.TOP | wx.BOTTOM | wx.LEFT, 5) # adding this label to our api sizer
 		self.apiList = wx.ListBox(self.listPanel, -1) #create the actual list
 		self.apiList.Bind(wx.EVT_LISTBOX, self.OnListChange)
-		self.listSizer.Add(self.apiList, 1, wx.EXPAND | wx.ALL, 20) #Add it to the list sizer
+		self.listSizer.Add(self.apiList, 1, wx.EXPAND, 20) #Add it to the list sizer
 
-		#Info panel, holds input and output pannels
-		self.infoPanel = wx.Panel(self.panel)
-		self.infoSizer = wx.BoxSizer(wx.VERTICAL)
 		#main
 		self.mainSizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.mainSizer.Add(self.listPanel, 0, wx.TOP | wx.BOTTOM | wx.LEFT, 30)
-		self.mainSizer.Add(self.infoPanel, 5, wx.EXPAND|wx.ALL, 30)
+		self.mainSizer.Add(self.listPanel, 0, wx.LEFT, 30)
 
 		#Setting sizers
-		self.panel.SetSizer(self.mainSizer)
 		self.listPanel.SetSizer(self.listSizer)
-		self.infoPanel.SetSizer(self.infoSizer)
-
-		#Set default input and output panels. These default to being hidden and are activated as necessary.
-		self.DefaultInput = inputPanel(self.infoPanel)
-		self.DefaultOutput = outputPanel(self.infoPanel)
-		self.SetPanels(self.DefaultInput, self.DefaultOutput)
+		self.panel.SetSizer(self.mainSizer)
 
 
-	def SetPanels(self, input, output):
-		"""This method sets the input and output panels, taking class instances for each."""
-		if self.input:
-			self.input.Hide()
-		if self.output:
-			self.output.Hide()
 
-		if self.infoSizer.GetChildren():
-			self.infoSizer.Clear()
-
-		if not input:
-			input = self.DefaultInput
-		if not output:
-			output = self.DefaultOutput
-
-		self.input = input
-		self.output = output
-		self.infoSizer.Add(input, 1, wx.TOP|wx.LEFT|wx.RIGHT, 20)
-		self.infoSizer.Add(output, 3, wx.LEFT|wx.BOTTOM|wx.RIGHT|wx.EXPAND, 30)
-		self.input.Show()
-		self.output.Show()
-		self.infoSizer.Layout()
+	def SetInfoPanel(self, info):
+		"""This method sets the info panel object."""
+		if self.InfoPanel:
+			self.InfoPanel.Hide()
+			self.MainSizer.Clear()
+		self.mainSizer.Add(self.listPanel, 0, wx.LEFT, 30)
+		self.mainSizer.Add(info, 5, wx.RIGHT, 30)
+		self.MainSizer.Layout()
 		self.Fit()
 
 	def CreateIcon(self):
@@ -98,7 +73,7 @@ class MainUI(wx.Frame):
 			self.CurrentPlugin.on_lose_focus()
 		self.CurrentPlugin = plugin
 		self.CurrentPluginNumber = value
-		self.SetPanels(plugin.InputPanel, plugin.OutputPanel)
+		self.SetInfoPanel(plugin.InfoPanel)
 		plugin.on_gain_focus()
 
 	def showhide(self, event=None):

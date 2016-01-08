@@ -1,9 +1,0 @@
-[Core]
-Name = Template
-Module = template
-
-[Documentation]
-Author = Bradley Renshaw
-Version = 1.0
-Website = http://www.github.com/oliver2213/queriet
-Description = Echoes back the user's input text.

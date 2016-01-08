@@ -30,9 +30,7 @@ class Plugin(IPlugin):
 			Make sure you 'super' this method, as it also gets a logging object, so you can use like
 				self.log.debug('test")
 			later on in your plugin."""
-		self.InputPanel = None
-		self.OutputPanel = None
-		self.log = logging.getLogger('Queriet.plugin.'+self.name)
+		self.InfoPanel = None
 
 	def SetController(self, controller):
 		"""Best not to redefine this, it runs when the plugin is passed a pointer to the main controller, saving it to self.controller.
@@ -44,7 +42,7 @@ class Plugin(IPlugin):
 		self.UnregisterKey = self.controller.UnRegisterKey
 
 	def setup(self):
-		"""This would be a good place to assign your InputPanel and OutputPanels, if your using either of these"""
+		"""This would be a good place to assign your info panel, if your using either of these"""
 		pass
 
 	def Activate(self):
@@ -57,22 +55,16 @@ class Plugin(IPlugin):
 
 	def on_gain_focus(self):
 		"""Unless there is something special that your plugin needs to do when it is selected in the API listbox in the user interface, you probably shouldn't mess with this method.
-			If, however, your plugin needs to start pulling data from the web (maybe to display in a list for a "top news" plugin), you should do that here by using Super to get what is defined here (which is the code to run the OnGainFocus and OnLoseFocus methods for your input and output panels).
+			If, however, your plugin needs to start pulling data from the web (maybe to display in a list for a "top news" plugin), you should do tkhat here by using Super to get what is defined here (which is the code to run the OnGainFocus and OnLoseFocus methods for your input and output panels).
 		"""
-		if self.InputPanel:
-			self.InputPanel.on_gain_focus()
-		if self.OutputPanel:
-			self.OutputPanel.on_gain_focus()
+		self.InfoPanel.on_gain_focus()
 
 	def on_lose_focus(self):
 		"""This method runs when your plugin loses it's selection in the main UI API listbox. If you have some data cached in memory, (say a previous search), you might wanna go ahead and write it to disk, close any Http / https sessions, that sort of thing.
 			Your plugin should not, however, release any resources it might have acquired, such as keybindings, temporary API tokens, etc - losing listbox focus just means the user is using (or might use, since they selected) another API in the list. Use the Deactivate method to release resources.
 			Remember to use Super to get the functionality defined here, which just calls the OnLoseFocus method of your panels.
 		"""
-		if self.InputPanel:
-			self.InputPanel.on_lose_focus()
-		if self.OutputPanel:
-			self.OutputPanel.on_lose_focus()
+		self.InfoPanel.on_lose_focus()
 
 
 
