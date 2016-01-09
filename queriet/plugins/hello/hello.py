@@ -14,6 +14,6 @@ class HelloInput(PluginHandler.pluginPanel):
 		helloButton = wx.Button(self, label="Hello World", size = (150, 30))
 		helloText = wx.TextCtrl(self, -1, style=wx.TE_READONLY, size=(200, 50))
 		box = wx.BoxSizer(wx.VERTICAL)
-		box.Add(helloText, 5)
+		box.Add(helloText, 3)
 		box.Add(helloButton)
 		self.SetSizer(box)
