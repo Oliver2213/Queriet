@@ -1,7 +1,7 @@
-#The Queriet application specification
+# The Queriet application specification
 This is, in general, just a place for the developers of queriet to hash out what, exactly, the application "does", and how it does it. If there is a feature you'd like to see, a suggestion you'd like to make, or general feedback you'd like to contribute about this document, please file an [issue](https://github.com/oliver2213/queriet/issues) or a [pull request](https://github.com/Oliver2213/Queriet/pulls).
 
-##General overview
+## General overview
 
 Queriet (The quick extensible ubiquitous interface enhancement tool), is meant to provide quick access to online resources. Need to look something up on wikipedia quickly? Convert 30 US Dollars to Canadian currency without going to google? Want to look up what a word means iether with a dictionary or the community-powered urban dictionary? Queriet will have you covered. Once things are set up, Queriet will run in the background, waiting for your keypress that launches the interface. The interface will have a few main elements:
 * A list of APIs to choose from. You'll find items such as Wikipedia, Urban Dictionary, Dictionary.com, etc here. What you choose in this list affects where your search gets it's results from.
@@ -11,11 +11,11 @@ Queriet (The quick extensible ubiquitous interface enhancement tool), is meant t
 
 The app also has a system tray icon that, when left-double clicked, shows or hides the interface, and a right click menu with items such as show/hide, check for updates, open the Queriet site, etc.
 
-###Note
+### Note
 
 If your a graphic designer or artest, we could really use an icon for Queriet! :p
 
-##Low-level components
+## Low-level components
 
 These are various low-level things that need to be in place for a v1.0 release
 
@@ -31,11 +31,11 @@ We have a basic plugin system using Yapsy in place, though it will most definitl
 * Get keyboard hooks working, and create a dialog that allows the user to define his / her own bindings, probably a tab on said options dialog. - Done! (Keyhooks working, no dialog yet)
 * create an update checking system bassed off of the Git Hub releases page for this project. E.G. Compare latest version to current number, if greater retrieve the correct asset's URL, download it, then pop up a balloon telling the user it's done. If we're feeling lazy, use [this updater](http://hg.q-continuum.net/updater/)
 
-##The plugin interface
+## The plugin interface
 
 We are using [Yapsy](http://yapsy.sourceforge.net/) for plugin management and discovery, and so far things seem to be going well. Plugins need to inherit from PluginHandler.Plugin, and redefine methods such as activate, deactivate, and setup.
 
-###Methods all plugins will need to support
+### Methods all plugins will need to support
 
 We're still hammering this out, but as it stands now, we think that plugins will need to support these methods (Plugins will inherit from the PluginHandler class):
 
@@ -46,6 +46,6 @@ We're still hammering this out, but as it stands now, we think that plugins will
 
 As stated above, all plugins will inherit from the PluginHandler class, which will have methods those plugins can redefine.
 
-###Results format
+### Results format
 
 Each plugin, after performing it's search or other work, needs to return some sort of standardized object. I'm thinking something like calling an PluginResult class with things like text, URL, APIName for each result, maybe plugins could define their own format as long as they build user interface elements to handle it.
