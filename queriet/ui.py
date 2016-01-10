@@ -26,24 +26,26 @@ class MainUI(wx.Frame):
 		self.panel = wx.Panel(self) # the main pannel that children pannels inherit from
 
 		self.MenuBar = wx.MenuBar()
-		
 
 		#API list
 		self.listPanel = wx.Panel(self.panel)
 		self.listSizer = wx.BoxSizer(wx.HORIZONTAL) #A list to hold the different APIs
 		self.apiStatic = wx.StaticText(self.listPanel, -1, 'API') #A label for our listview
-		self.listSizer.Add(self.apiStatic, 1, wx.TOP | wx.BOTTOM | wx.LEFT, 5) # adding this label to our api sizer
+		self.listSizer.Add(self.apiStatic, 1) # adding this label to our api sizer
 		self.apiList = wx.ListBox(self.listPanel, -1) #create the actual list
 		self.apiList.Bind(wx.EVT_LISTBOX, self.OnListChange)
-		self.listSizer.Add(self.apiList, 1, wx.EXPAND, 20) #Add it to the list sizer
+		self.listSizer.Add(self.apiList, 3) #Add it to the list sizer
 
 		#main
-		self.mainSizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.mainSizer.Add(self.listPanel, 0, wx.LEFT, 30)
+		self.MainSizer = wx.BoxSizer(wx.HORIZONTAL)
+		self.MainSizer.Add(self.listPanel, 1)
 
 		#Setting sizers
+		self.panel.SetSizer(self.MainSizer)
 		self.listPanel.SetSizer(self.listSizer)
-		self.panel.SetSizer(self.mainSizer)
+		self.MainSizer.Layout()
+		self.Fit()
+
 
 
 
@@ -51,9 +53,10 @@ class MainUI(wx.Frame):
 		"""This method sets the info panel object."""
 		if self.InfoPanel:
 			self.InfoPanel.Hide()
-			self.MainSizer.Clear()
-		self.mainSizer.Add(self.listPanel, 0, wx.LEFT, 30)
-		self.mainSizer.Add(info, 5, wx.RIGHT, 30)
+		self.MainSizer.Clear()
+		self.MainSizer.Add(self.listPanel, 1)
+		self.MainSizer.Add(info, 3)
+		self.InfoPanel = info
 		self.MainSizer.Layout()
 		self.Fit()
 
