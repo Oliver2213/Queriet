@@ -73,11 +73,11 @@ class MainUI(wx.Frame):
 		if not plugin:
 			return
 		if self.CurrentPlugin:
-			self.CurrentPlugin.on_lose_focus()
+			self.CurrentPlugin.OnLoseFocus()
 		self.CurrentPlugin = plugin
 		self.CurrentPluginNumber = value
 		self.SetInfoPanel(plugin.InfoPanel)
-		plugin.on_gain_focus()
+		plugin.OnGainFocus()
 
 	def showhide(self, event=None):
 		if self.Shown:
