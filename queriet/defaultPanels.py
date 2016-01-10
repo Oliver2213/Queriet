@@ -1,7 +1,7 @@
 import wx
 import PluginHandler
 
-class inputPanel(PluginHandler.pluginPanel):
+class inputPanel(PluginHandler.PluginPanel):
 	"""Default input panel, used for inputting information for a query, can be API defined."""
 	def __init__(self, parent):
 		super(inputPanel, self).__init__(parent)
@@ -15,10 +15,10 @@ class inputPanel(PluginHandler.pluginPanel):
 		self.SetSizer(self.inputSizer)
 		self.Hide()
 
-	def on_lose_focus(self):
+	def OnLoseFocus(self):
 		self.input.Clear()
 
-class outputPanel(PluginHandler.pluginPanel):
+class outputPanel(PluginHandler.PluginPanel):
 	"""The default output panel object, used to display the results of a query."""
 	def __init__(self, parent):
 		super(outputPanel, self).__init__(parent)
@@ -30,5 +30,5 @@ class outputPanel(PluginHandler.pluginPanel):
 		self.SetSizer(self.outputSizer)
 		self.Hide()
 
-	def on_lose_focus(self):
+	def ONLoseFocus(self):
 		self.output.Clear()
