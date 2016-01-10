@@ -8,7 +8,7 @@ class hello(PluginHandler.Plugin):
 	def setup(self):
 		self.InfoPanel = HelloInput(self.controller.ui.panel)
 
-class HelloInput(PluginHandler.pluginPanel):
+class HelloInput(PluginHandler.PluginPanel):
 	def __init__(self, parent):
 		super(HelloInput, self).__init__(parent)
 		helloButton = wx.Button(self, label="Hello World", size = (150, 30))
