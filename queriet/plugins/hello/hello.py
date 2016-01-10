@@ -17,3 +17,4 @@ class HelloInput(PluginHandler.PluginPanel):
 		box.Add(helloText, 3)
 		box.Add(helloButton)
 		self.SetSizer(box)
+		self.Hide()

@@ -5,5 +5,5 @@ Module = hello
 [Documentation]
 Author = Bradley Renshaw
 Version = 1.0
-Website = http://www.github.com/oliver2213/queriet
+Website = https://github.com/oliver2213/queriet
 Description = Print the text "Hello World". Original, isn't it?

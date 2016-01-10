@@ -43,9 +43,9 @@ class Controller(object):
 			for plugin in self.pm.getAllPlugins():
 				#The plugins dict is keyed by the plugin's info object, with the value being the instantiated plugin
 				#This, however, is just an abstraction over the yapsy layer. We can use the iteration "plugin" object, which is really a yapsy info object, to get variable plugin info, like name, author, version, etc
-				#We also use the info object to give the plugin's class attributes from it's metadata file
 				self.plugins[plugin]=plugin.plugin_object
 				self.log.debug("Added plugin %s " %(plugin.name))
+				#Note that plugins need to be passed a reffrence to the main controller before setup, as the 'setup' method is where they should be defining their panels, which need a parrent, which... They get from controller.ui.panel.
 				try:
 					plugin.plugin_object.SetController(self)
 				except: 
@@ -56,6 +56,7 @@ class Controller(object):
 					self.log.exception("Error when setting up plugin '%s'" %(plugin.name))
 			self.log.debug("%d total plugins added to plugins dictionary." %(len(self.plugins)))
 			if self.ui:
+				#Add all the plugins in the controller's 'plugins' dictionary to the user interface
 				self.ui.AddPluginsToList()
 			else:
 				self.log.warning("Built plugins list, but no UI object was found, so not adding them to the UI listbox.")
@@ -78,8 +79,6 @@ class Controller(object):
 		self.UnregisterKeys = self.keyhandler.unregister_keys
 		self.RegisterKey('win+q', self.ui.showhide)
 
-	#def register_key(self, key, func):
-		#self.keyhandler.register_key(key, func)
 
 	def ShutdownPlugins(self):
 		"""This method goes through and calls the Deactivate method of each plugin.
