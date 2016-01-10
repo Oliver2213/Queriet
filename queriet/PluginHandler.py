@@ -76,11 +76,11 @@ class PluginPanel(wx.Panel):
 
 	def OnGainFocus(self):
 		"""This method should do things that are *specific* to the panel when it gets focus. This might be loading up previous searches from a config file, setting controls to their last position, etc."""
-		pass
+		self.Show()		
 
 	def OnLoseFocus(self):
 		"""Again, this method needs to do things that are *specific* to the panel - the plugin's OnGainFocus and OnLoseFocus methods will handle everything else."""
-		pass
+		self.Hide()
 
 def GetPluginManager():
 	"""Returns a plugin manager object, with Queriet-specific settings."""
