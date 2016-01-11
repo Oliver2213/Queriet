@@ -13,7 +13,7 @@ The app also has a system tray icon that, when left-double clicked, shows or hid
 
 ### Note
 
-If your a graphic designer or artest, we could really use an icon for Queriet! :p
+If you're a graphic designer or artist, we could really use an icon for Queriet! :p
 
 ## Low-level components
 
