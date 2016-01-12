@@ -55,6 +55,8 @@ class MainUI(wx.Frame):
 		self.MenuBar.Append(self.MenuBar_file, '&File')
 		self.MenuBar_help = wx.Menu()
 		self.MenuBar_help_about = utils.CreateMenuItem(self.MenuBar_help, "&About...", self.OnAbout, id=wx.ID_ABOUT)
+		self.MenuBar_help_OpenSite = utils.CreateMenuItem(self.MenuBar_help, 'Open Queriet &site...', self.OpenSite)
+		self.MenuBar_help_OpenIssuePage = utils.CreateMenuItem(self.MenuBar_help, 'File an &issue...', self.OpenIssuePage)
 		self.MenuBar.Append(self.MenuBar_help, '&Help')
 
 		self.SetMenuBar(self.MenuBar)
@@ -99,6 +101,9 @@ class MainUI(wx.Frame):
 		"""Opens the Queriet website"""
 		os.startfile('https://github.com/oliver2213/queriet')
 
+	def OpenIssuePage(self, event):
+		"""Opens the github issues page"""
+		os.startfile('https://github.com/oliver2213/queriet/issues')
 	def AddPluginsToList(self):
 		"""This method adds each plugin found in self.controller.plugins to lists that need them, currently only the main listbox.
 			This method gets run each time the plugins list is rebuilt."""
