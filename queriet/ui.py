@@ -144,6 +144,7 @@ class SystemTrayIcon(wx.TaskBarIcon):
 		self.menu = wx.Menu()
 		self.showhide_item = utils.CreateMenuItem(self.menu, '&show or hide Queriet', self.MUI.showhide)
 		self.openSite_item = utils.CreateMenuItem(self.menu, 'Open the Queriet &website', self.MUI.OpenSite)
+		self.about = utils.CreateMenuItem(self.menu, 'About...', self.MUI.OnAbout, id=wx.ID_ABOUT)
 		self.menu.AppendSeparator()
 		self.exit_item = utils.CreateMenuItem(self.menu, 'e&xit', self.MUI.controller.OnClose, id=wx.ID_EXIT)
 
