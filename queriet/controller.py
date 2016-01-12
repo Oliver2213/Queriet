@@ -104,7 +104,6 @@ class Controller(object):
 			All menu items, exit buttons, etc, should come here first to start a top-down exit"""
 		self.log.info("Queriet starting shutdown.")
 		if self.ui:
-			self.log.debug("Closing UI.")
 			self.ui.OnClose(None)
 		if self.pm:
 			self.log.debug("Deactivating all plugins.")
