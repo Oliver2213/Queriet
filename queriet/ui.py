@@ -4,14 +4,14 @@
 import os
 import wx
 import utils
-
-
+import info
 class MainUI(wx.Frame):
 	"""Class that holds the main user interface for Queriet"""
 	def __init__(self, controller, parent, title):
 		super(MainUI, self).__init__(parent, title=title, size=(1000, 800))
 		self.controller = controller
 		self.setup()
+		self.SetupMenuBar()
 		self.Bind(wx.EVT_CLOSE, self.controller.OnClose)
 		self.CreateIcon()
 		self.Center()
@@ -24,8 +24,6 @@ class MainUI(wx.Frame):
 		self.CurrentPluginNumber = -1
 		self.InfoPanel = None
 		self.panel = wx.Panel(self) # the main pannel that children pannels inherit from
-
-		self.MenuBar = wx.MenuBar()
 
 		#API list
 		self.listPanel = wx.Panel(self.panel)
@@ -46,7 +44,20 @@ class MainUI(wx.Frame):
 		self.MainSizer.Layout()
 		self.Fit()
 
+	def SetupMenuBar(self):
+		"""Setup our menubar.
+			Menu bar menus as well as items should be named like: self.MenuBar_file (the file, menu), self.MenuBar_file_exit (an exit item in the file menu)
+		"""
+		self.MenuBar = wx.MenuBar()
+		self.MenuBar_file = wx.Menu()
+		self.MenuBar_file_exit = utils.CreateMenuItem(self.MenuBar_file, 'E&xit', self.controller.OnClose, id=wx.ID_EXIT)
+		
+		self.MenuBar.Append(self.MenuBar_file, '&File')
+		self.MenuBar_help = wx.Menu()
+		self.MenuBar_help_about = utils.CreateMenuItem(self.MenuBar_help, "&About...", self.OnAbout, id=wx.ID_ABOUT)
+		self.MenuBar.Append(self.MenuBar_help, '&Help')
 
+		self.SetMenuBar(self.MenuBar)
 
 
 	def SetInfoPanel(self, info):
@@ -69,7 +80,6 @@ class MainUI(wx.Frame):
 		if value<0 or value == self.CurrentPluginNumber:
 			return
 		plugin = self.apiList.GetClientData(self.apiList.GetSelection())
-#		plugin = self.controller.plugins[self.apiList.GetString(value)]
 		if not plugin:
 			return
 		if self.CurrentPlugin:
@@ -103,6 +113,10 @@ class MainUI(wx.Frame):
 			return
 		self.SetFocus(sel)
 
+	def OnAbout(self, event):
+		dlg = wx.MessageDialog(self, """Queriet, the quick ubiquitous extensible research interface enhancement tool, version %s. \nAuthors: %s. \nQueriet is a tool designed to give you quick access to information. With an open framework for developers to define plugins and all sourcecode freely available on Git Hub, we want to make it as easy as possible for anyone with a bit of programming knowledge to make plugins for queriet. \nEach plugin allows Queriet to get information from different sources. For more info, select the 'open website' item from the help menu.""" %(info.version, info.authors), "About Queriet")
+		dlg.ShowModal()
+
 	def OnClose(self, event):
 		"""Delete system tray icon and this window."""
 		self.icon.Destroy()
@@ -126,7 +140,7 @@ class SystemTrayIcon(wx.TaskBarIcon):
 		self.showhide_item = utils.CreateMenuItem(self.menu, '&show or hide Queriet', self.MUI.showhide)
 		self.openSite_item = utils.CreateMenuItem(self.menu, 'Open the Queriet &website', self.MUI.OpenSite)
 		self.menu.AppendSeparator()
-		self.exit_item = utils.CreateMenuItem(self.menu, 'e&xit', self.MUI.controller.OnClose)
+		self.exit_item = utils.CreateMenuItem(self.menu, 'e&xit', self.MUI.controller.OnClose, id=wx.ID_EXIT)
 
 	def CreatePopupMenu(self):
 		"""Show the menu."""

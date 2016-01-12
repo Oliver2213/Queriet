@@ -4,7 +4,7 @@
 import logging
 import wx
 
-def CreateMenuItem(menu, label, func, id=None, help = None, kind=wx.ITEM_NORMAL, submenu=False):
+def CreateMenuItem(menu, label, func, id=None, help ="", kind=wx.ITEM_NORMAL):
 	"""A quick function to add and bind a menu item.
 		The point of this is to provide a wrapper around WX and be called by the application with all the arguments it needs (and with defaults that you can just not worry about if you don't need them). It will also handle binding to a menu event.
 		This can be used for menubars, system tray icons, etc.
