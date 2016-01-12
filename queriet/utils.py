@@ -4,15 +4,22 @@
 import logging
 import wx
 
-def CreateMenuItem(menu, label, func,  position=-1):
+def CreateMenuItem(menu, label, func, id=None, help = None, kind=wx.ITEM_NORMAL, submenu=False):
 	"""A quick function to add and bind a menu item.
+		The point of this is to provide a wrapper around WX and be called by the application with all the arguments it needs (and with defaults that you can just not worry about if you don't need them). It will also handle binding to a menu event.
 		This can be used for menubars, system tray icons, etc.
-		Just pass it the menu object in question, a label for your new option, it's position (-1 by default, which appends to end), and a funcion you'd like to bind it to.
+		Necessary info is the menu object in question, a label for your new option, and a funcion you'd like to bind it to. You can also provide a help text, the kind, and an ID, if your making a stock item (about, exit, new), it's best to use those so they look native on every OS.
+		Kind can be one of: 
+			wx.ITEM_SEPARATOR - a line in the menu separating items
+			wx.ITEM_NORMAL - a normal clickable menu item (this is what is used if you don't specify a kind)
+			wx.ITEM_CHECK - a checkable menu item, use item.Check(True), or item.Check(False) to control this
+			wx.ITEM_RADIO - (I think...), an item that is exclusively checked. (You have 5 items, you can only have one checked)
 		By default, this function appends your item to the end of the menu, so the order in which you add items by calling this function is important to how the menu looks.
 		Also, remember you can denote a shortcut key with the and (&) sign before the letter in the label.
 		Coppied and slightly modified from http://stackoverflow.com/questions/6389580/quick-and-easy-trayicon-with-python
 	"""
-	item = wx.MenuItem(menu, position, label)
+	if id is None: id = wx.ID_ANY
+	item = wx.MenuItem(menu, id, label, help, kind)
 	menu.Bind(wx.EVT_MENU, func, id=item.GetId())
 	menu.AppendItem(item)
 	return item
