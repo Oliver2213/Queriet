@@ -40,7 +40,7 @@ def Search(text):
 	#returns a list
 	string = ""
 	if len(results)==0:
-		string = "No results found.")
+		string = "No results found."
 		return string
 	else:
 		if len(results)==1: word = 'result' else: word = 'results'
