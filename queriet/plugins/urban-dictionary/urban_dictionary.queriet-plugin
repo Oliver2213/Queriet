@@ -1,0 +1,9 @@
+[Core]
+Name = Urban dictionary
+Module = urban_dictionary
+
+[Documentation]
+Author = Blake Oliver
+Version = 1.0
+Website = https://github.com/oliver2213/queriet
+Description = Allows lookup of words and phraises from Urban Dictionary
