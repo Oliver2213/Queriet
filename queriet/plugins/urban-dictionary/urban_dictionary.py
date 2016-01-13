@@ -20,7 +20,7 @@ class UrbanDictInfoPanel(PluginHandler.PluginPanel):
 	"""Panel class that sets up this plugin's UI"""
 	
 	def __init__(self, parent):
-		super(UrbanDictPanel, self).__init__(parent)
+		super(UrbanDictInfoPanel, self).__init__(parent)
 		self.InputPanel = StandardInputPanel(self, self.Search, InputFieldString='Urbandictionary Search')
 		self.OutputPanel = ReadOnlyOutputPanel(self)
 		
