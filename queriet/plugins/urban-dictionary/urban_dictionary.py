@@ -16,7 +16,7 @@ class urban_dictionary(PluginHandler.Plugin):
 		self.InfoPanel = UrbanDictInfoPanel(self.controller.ui.panel)
 
 
-class UrbanDictPanel(PluginHandler.PluginPanel):
+class UrbanDictInfoPanel(PluginHandler.PluginPanel):
 	"""Panel class that sets up this plugin's UI"""
 	
 	def __init__(self, parent):
