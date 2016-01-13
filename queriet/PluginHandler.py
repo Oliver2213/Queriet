@@ -71,15 +71,17 @@ class Plugin(IPlugin):
 class PluginPanel(wx.Panel):
 	"""The template for a plugin panel.
 	
-	An input or output panel for a plugin must have the following:
-	- An OnGainFocus and OnLoseFocus method. These will instantiate and change whatever they need to for the panels when they gain and lose focus when plugins change, respectively."""
+	Currently, an input or output panel for a plugin must have the following:
+		OnGainFocus and OnLoseFocus methods which will (by default), show and hide their panels, respectively. If you need these methods to do something *UI specific*, then redefine and super or show and hide manuall.
+		Your methods *MUST* show and hide when gaining or losing focus!
+	"""
 
 	def OnGainFocus(self):
-		"""This method should do things that are *specific* to the panel when it gets focus. This might be loading up previous searches from a config file, setting controls to their last position, etc."""
+		"""This method should do things that are *specific* to the panel when it gets focus. This might be loading up previous searches from a config file, setting controls to their last position, etc. It must always show the panel."""
 		self.Show()		
 
 	def OnLoseFocus(self):
-		"""Again, this method needs to do things that are *specific* to the panel - the plugin's OnGainFocus and OnLoseFocus methods will handle everything else."""
+		"""Again, this method needs to do things that are *specific* to the panel - the plugin's OnGainFocus and OnLoseFocus methods will handle everything else. THis method must always hide it's panel."""
 		self.Hide()
 
 def GetPluginManager():

@@ -5,7 +5,7 @@ class StandardInputPanel(wx.Panel):
 	"""Default input panel, used for inputting information for a query, can be API defined. 
 		This panel is meant as a building block to be placed under an info panel which inherits from PluginHandler.PluginPanel, thus it does not need the OnGain / LoseFocus methods it's parent does.
 	"""
-	def __init__(self, parent, InputFieldString='Search term or equation', SearchButtonString='Search'):
+	def __init__(self, parent, SearchFunc, InputFieldString='Search term or equation', SearchButtonString='Search'):
 		super(StandardInputPanel, self).__init__(parent)
 		self.inputStatic = wx.StaticText(self, -1, InputFieldString)
 		self.input = wx.TextCtrl(self, -1)
