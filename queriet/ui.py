@@ -98,11 +98,20 @@ class MainUI(wx.Frame):
 		if not plugin:
 			return
 		if self.CurrentPlugin:
-			self.CurrentPlugin.OnLoseFocus()
+			try:
+				self.CurrentPlugin.OnLoseFocus()
+			except:
+				self.log.exception("Error while running OnLoseFocus method of plugin!")
 		self.CurrentPlugin = plugin
 		self.CurrentPluginNumber = value
-		self.SetInfoPanel(plugin.InfoPanel)
-		plugin.OnGainFocus()
+		try:
+			self.SetInfoPanel(plugin.InfoPanel)
+		except:
+			self.log.exception("Error setting plugin info panel!")
+		try:
+			plugin.OnGainFocus()
+		except:
+			self.log.exception("Error while running OnGainFocus method of plugin!")
 
 	def showhide(self, event=None):
 		if self.Shown:
