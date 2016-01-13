@@ -44,7 +44,7 @@ def Search(text):
 		string = "No results found."
 		return string
 	else:
-		word = 'result' if len(words) ==1 else 'results'
+		word = 'result' if len(results) ==1 else 'results'
 		string+="""%s %s found.""" %(len(results), word)
 		for entry in results:
 			#Must have word atribute
