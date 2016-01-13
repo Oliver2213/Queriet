@@ -18,4 +18,6 @@ To run Queriet from source, you'll need the following dependencies installed:
 * [WX Python](http://wxpython.org/) for the interface.
 * [Yapsy](http://yapsy.sourceforge.net/) for plugin installation, management, and removal.
 * [Requests](https://github.com/kennethreitz/requests) for http communication, most, if not all, stock plugins will probably use this, other contributed plugins (if we get any once the project works correctly) might want to use requests for easing of specific http implementation, and in general it's a good package to have around.
+* [ConfigObj](https://pypi.python.org/pypi/configobj/) and [validate](https://pypi.python.org/pypi/validate) for configuration file and specification loading, manipulating, and validation.
+* [urbandict](https://pypi.python.org/pypi/urbandict/0.4) for the urban dictionary plugin.
 * Specific plugins will probably define their own requirements, we'll most likely implement a system for downloading these as needed (plugin activation or plugin installation) for plugins that aren't in the official package.
