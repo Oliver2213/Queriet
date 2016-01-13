@@ -23,6 +23,7 @@ class UrbanDictPanel(PluginHandler.PluginPanel):
 		super(UrbanDictPanel, self).__init__(parent)
 		self.InputPanel = StandardInputPanel(self, self.Search, InputFieldString='Urbandictionary Search')
 		self.OutputPanel = ReadOnlyOutputPanel(self)
+		
 
 	def Search(self):
 		"""Don't confuse this with the search function, outside this class.
@@ -43,7 +44,7 @@ def Search(text):
 		string = "No results found."
 		return string
 	else:
-		if len(results)==1: word = 'result' else: word = 'results'
+		word = 'result' if len(words) ==1 else 'results'
 		string+="""%s %s found.""" %(len(results), word)
 		for entry in results:
 			#Must have word atribute
