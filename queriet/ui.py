@@ -137,7 +137,7 @@ class MainUI(wx.Frame):
 		sel = self.apiList.GetSelection()
 		if sel < 0:
 			return
-		self.log.debug("API list selection changed.\n%s is now selected." %(cell))
+		self.log.debug("API list selection changed.\n%s is now selected." %(sel))
 		self.SetFocus(sel)
 
 	def OnAbout(self, event):
