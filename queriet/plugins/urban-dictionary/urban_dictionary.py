@@ -11,7 +11,7 @@ class urban_dictionary(PluginHandler.Plugin):
 		super(urban_dictionary, self).__init__()
 		#We don't really need to do anything here, no api tokens required with this package
 
-	def setup():
+	def setup(self):
 		"""This method just creates the main info panel for urban dict and saves it for the UI to use"""
 		self.InfoPanel = UrbanDictInfoPanel(self.controller.ui.panel)
 
@@ -24,7 +24,7 @@ class UrbanDictPanel(PluginHandler.PluginPanel):
 		self.InputPanel = StandardInputPanel(self, self.Search, InputFieldString='Urbandictionary Search')
 		self.OutputPanel = ReadOnlyOutputPanel(self)
 		
-
+		
 	def Search(self):
 		"""Don't confuse this with the search function, outside this class.
 		This is merely a proxy method that gets the return value from that function and sets the read only textfield with the result(s).
