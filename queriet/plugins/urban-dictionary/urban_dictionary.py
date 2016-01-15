@@ -23,7 +23,11 @@ class UrbanDictInfoPanel(PluginHandler.PluginPanel):
 		super(UrbanDictInfoPanel, self).__init__(parent)
 		self.InputPanel = StandardInputPanel(self, self.Search, InputFieldString='Urbandictionary Search')
 		self.OutputPanel = ReadOnlyOutputPanel(self)
-		
+		self.sizer = wx.BoxSizer(wx.VERTICAL)
+		self.sizer.Add(self.InputPanel, 1)
+		self.sizer.Add(self.OutputPanel, 4)
+		self.SetSizer(self.sizer)
+		self.Hide()
 		
 	def Search(self):
 		"""Don't confuse this with the search function, outside this class.

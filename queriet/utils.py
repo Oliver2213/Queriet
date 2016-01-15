@@ -44,7 +44,7 @@ def SetupLogging(caller):
 	FileHandler = logging.FileHandler('Queriet.log')
 	FileHandler.setLevel(logging.DEBUG)
 	FileHandler.setFormatter(LogFormat)
-	log.addHandler(ConsoleHandler)
+	#log.addHandler(ConsoleHandler)
 	log.addHandler(FileHandler)
 	YapsyLog.addHandler(ConsoleHandler)
 	YapsyLog.addHandler(FileHandler)

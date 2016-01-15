@@ -24,30 +24,40 @@ class MainUI(wx.Frame):
 	def setup(self):
 		"""Sets up the application UI layout and menu bar"""
 		self.log.debug("Setting up main UI...")
+
+		self.listSizer = wx.BoxSizer(wx.HORIZONTAL) #A list to hold the different APIs
+		self.MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 		self.CurrentPlugin = None
 		self.CurrentPluginNumber = -1
 		self.InfoPanel = None
 		self.panel = wx.Panel(self) # the main pannel that children pannels inherit from
 
 		#API list
-		self.listPanel = wx.Panel(self.panel)
-		self.listSizer = wx.BoxSizer(wx.HORIZONTAL) #A list to hold the different APIs
-		self.apiStatic = wx.StaticText(self.listPanel, -1, 'API') #A label for our listview
-		self.listSizer.Add(self.apiStatic, 1) # adding this label to our api sizer
-		self.apiList = wx.ListBox(self.listPanel, -1) #create the actual list
-		self.apiList.Bind(wx.EVT_LISTBOX, self.OnListChange)
-		self.listSizer.Add(self.apiList, 3) #Add it to the list sizer
+		self.ListPanel = wx.Panel(self.panel)
 
-		#main
-		self.MainSizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.MainSizer.Add(self.listPanel, 1)
+		self.apiStatic = wx.StaticText(self.ListPanel, -1, 'API') #A label for our listview
+
+		self.apiList = wx.ListBox(self.ListPanel, -1) #create the actual list
+		self.apiList.Bind(wx.EVT_LISTBOX, self.OnListChange)
 
 		#Setting sizers
-		self.panel.SetSizer(self.MainSizer)
-		self.listPanel.SetSizer(self.listSizer)
-		self.MainSizer.Layout()
-		self.Fit()
+		self.SetSizers()
 		self.log.debug("Done!")
+
+	def SetSizers(self):
+		self.MainSizer.Clear()
+		self.listSizer.Clear()
+
+		self.listSizer.Add(self.apiStatic, 1, wx.EXPAND) # adding this label to our api sizer
+		self.listSizer.Add(self.apiList, 3, wx.EXPAND) #Add it to the list sizer
+		self.MainSizer.Add(self.ListPanel, 1)
+		if self.InfoPanel:
+			self.MainSizer.Add(self.InfoPanel, 3, wx.EXPAND)
+		self.ListPanel.SetSizer(self.listSizer)
+
+		self.panel.SetSizer(self.MainSizer)
+		self.MainSizer.Layout()
+
 
 	def SetupMenuBar(self):
 		"""Setup our menubar.
@@ -76,12 +86,8 @@ class MainUI(wx.Frame):
 		if self.InfoPanel:
 			self.log.debug("Existing info panel %s, hiding it." %(self.InfoPanel))
 			self.InfoPanel.Hide()
-		self.MainSizer.Clear()
-		self.MainSizer.Add(self.listPanel, 1)
-		self.MainSizer.Add(info, 3)
 		self.InfoPanel = info
-		self.MainSizer.Layout()
-		self.Fit()
+		self.SetSizers()
 		self.log.debug("Set new info panel.")
 
 	def CreateIcon(self):

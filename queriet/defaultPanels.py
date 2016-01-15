@@ -9,7 +9,7 @@ class StandardInputPanel(wx.Panel):
 		super(StandardInputPanel, self).__init__(parent)
 		self.inputStatic = wx.StaticText(self, -1, InputFieldString)
 		self.input = wx.TextCtrl(self, -1)
-		self.SearchButton = wx.Button(self, -1, SearchButtonString, size=(50, 50))
+		self.SearchButton = wx.Button(self, -1, SearchButtonString)
 		self.SearchButton.Bind(wx.EVT_BUTTON, SearchFunc)
 		self.inputSizer = wx.BoxSizer(wx.HORIZONTAL) # A sizer for items in the input panel
 		self.inputSizer.Add(self.inputStatic, 1, wx.TOP|wx.LEFT|wx.BOTTOM, 5) # adding our input label
