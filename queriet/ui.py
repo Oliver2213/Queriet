@@ -124,10 +124,11 @@ class MainUI(wx.Frame):
 	def showhide(self, event=None):
 		if self.Shown:
 			self.Hide()
-			self.log.debug("Hid main window.")
+			self.log.debug("Window hidden.")
 		else:
 			self.Show()
-			self.log.debug("Showed window.")
+			self.SetFocus()
+			self.log.debug("Window shown and set focus.")
 
 	def OpenSite(self, event):
 		"""Opens the Queriet website"""
