@@ -25,7 +25,7 @@ class MainUI(wx.Frame):
 		"""Sets up the application UI layout and menu bar"""
 		self.log.debug("Setting up main UI...")
 
-		self.listSizer = wx.BoxSizer(wx.HORIZONTAL) #A list to hold the different APIs
+		self.ListSizer = wx.BoxSizer(wx.HORIZONTAL) #A list to hold the different APIs
 		self.MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 		self.CurrentPlugin = None
 		self.CurrentPluginNumber = -1
@@ -48,15 +48,17 @@ class MainUI(wx.Frame):
 		self.MainSizer.Clear()
 		self.listSizer.Clear()
 
-		self.listSizer.Add(self.apiStatic, 1, wx.EXPAND) # adding this label to our api sizer
-		self.listSizer.Add(self.apiList, 3, wx.EXPAND) #Add it to the list sizer
+		self.ListSizer.Add(self.apiStatic, 1, wx.EXPAND) # adding this label to our api sizer
+		self.ListSizer.Add(self.apiList, 3, wx.EXPAND) #Add it to the list sizer
+		self.ListSizer.Layout()
+		self.ListSizer.Fit()
+		self.ListPanel.SetSizer(self.ListSizer)
 		self.MainSizer.Add(self.ListPanel, 1)
 		if self.InfoPanel:
 			self.MainSizer.Add(self.InfoPanel, 3, wx.EXPAND)
-		self.ListPanel.SetSizer(self.listSizer)
-
-		self.panel.SetSizer(self.MainSizer)
 		self.MainSizer.Layout()
+		self.MainSizer.fit()
+		self.panel.SetSizer(self.MainSizer)
 
 
 	def SetupMenuBar(self):
