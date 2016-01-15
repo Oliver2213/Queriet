@@ -29,9 +29,12 @@ class UrbanDictInfoPanel(PluginHandler.PluginPanel):
 		self.sizer.Layout()
 		self.SetSizer(self.sizer)
 		self.Fit()
+		# Show the children panels, since they are hidden by default
+		self.InputPanel.Show()
+		self.OutputPanel.Show()
 		self.Hide()
 		
-	def Search(self):
+	def Search(self, event):
 		"""Don't confuse this with the search function, outside this class.
 		This is merely a proxy method that gets the return value from that function and sets the read only textfield with the result(s).
 		"""		
