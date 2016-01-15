@@ -46,19 +46,19 @@ class MainUI(wx.Frame):
 
 	def SetSizers(self):
 		self.MainSizer.Clear()
-		self.listSizer.Clear()
+		self.ListSizer.Clear()
 
 		self.ListSizer.Add(self.apiStatic, 1, wx.EXPAND) # adding this label to our api sizer
 		self.ListSizer.Add(self.apiList, 3, wx.EXPAND) #Add it to the list sizer
 		self.ListSizer.Layout()
-		self.ListSizer.Fit()
 		self.ListPanel.SetSizer(self.ListSizer)
+		self.ListPanel.Fit()
 		self.MainSizer.Add(self.ListPanel, 1)
 		if self.InfoPanel:
 			self.MainSizer.Add(self.InfoPanel, 3, wx.EXPAND)
 		self.MainSizer.Layout()
-		self.MainSizer.fit()
 		self.panel.SetSizer(self.MainSizer)
+		self.panel.Fit()
 
 
 	def SetupMenuBar(self):
