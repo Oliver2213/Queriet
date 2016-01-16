@@ -21,6 +21,8 @@ class MainUI(wx.Frame):
 		self.Center()
 		if self.controller.config['general']['open_on_startup'] == True:
 			self.Show()
+		else:
+			self.icon.ShowBalloon("Queriet running!", "Queriet is now running in the background, awaiting your use.", 3000)
 
 	def setup(self):
 		"""Sets up the application UI layout and menu bar"""
