@@ -6,3 +6,6 @@ ask_to_exit = boolean(default=True)
 [logging]
 log_level = option("debug", "info", "warning", "error", "critical", default = "info")
 format = string(default='%(asctime)s - %(name)s - %(levelname)s: %(message)s')
+
+[dialogs]
+exit_action = boolean(default=False)

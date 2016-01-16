@@ -16,10 +16,7 @@ class MainUI(wx.Frame):
 		self.controller = controller
 		self.setup()
 		self.SetupMenuBar()
-		if self.controller.config['general']['exit_to_tray'] == True:	
-			self.Bind(wx.EVT_CLOSE, self.showhide)
-		else: #when the user exits, (with alt f 4 or other methods), actually exit rather than closing to tray
-			self.Bind(wx.EVT_CLOSE, self.controller.OnClose)
+		self.Bind(wx.EVT_CLOSE, self.DoClose)
 		self.CreateIcon()
 		self.Center()
 		self.Show()
@@ -125,12 +122,13 @@ class MainUI(wx.Frame):
 			self.log.exception("Error while running OnGainFocus method of plugin!")
 
 	def showhide(self, event=None):
+		"""This method shows or hides the main UI, depending on it's current state. It gets called by the main hotkey, the "DoClose" method (if that's the choice the user wants), and the system tray "show / hide" menu item"""
 		if self.Shown:
 			self.Hide()
 			self.log.debug("Window hidden.")
 		else:
 			self.Show()
-			self.SetFocus()
+			self.apiList.SetFocus()
 			self.log.debug("Window shown and set focus.")
 
 	def OpenSite(self, event):
@@ -164,9 +162,36 @@ class MainUI(wx.Frame):
 	def OnAbout(self, event):
 		dlg = wx.MessageDialog(self, """Queriet, the quick ubiquitous extensible research interface enhancement tool, version %s. \nAuthors: %s. \nQueriet is a tool designed to give you quick access to information. With an open framework for developers to define plugins and all sourcecode freely available on Git Hub, we want to make it as easy as possible for anyone with a bit of programming knowledge to make plugins for queriet. \nEach plugin allows Queriet to get information from different sources. For more info, select the 'open website' item from the help menu.""" %(info.version, info.authors), "About Queriet")
 		dlg.ShowModal()
+		dlg.Destroy()
+
+	def DoClose(self, event):
+		"""This method performs the "correct" action to close. 
+			If the user has it set in config that they want Queriet to close to the tray when they close the main window (which is what I recommend, as this app needs to run in the background to be fast), that's what this does. Otherwise, it starts a full, top-down, get the fuck out exit.
+		"""
+		self.log.debug("User started close of main UI.")
+		if self.controller.config['dialogs']['exit_action'] == False: # We haven't asked the user what they want to do yet, let's do so
+			self.log.debug("The user hasn't been asked about exiting to the background. Asking now...")
+			dlg = wx.MessageDialog(self, "Queriet needs to run in the background to be available quickly for information lookup. When you exit the main window, the application would like to keep running in the background, waiting for you when you need it, even when the interface is hidden. Queriet is very light on system resources, and you can change this later in settings. You can optionally have Queriet exit fully when you close the main window, though this is not advised. Do you want to close to tray (recommended)?", "Keep running in background?", style=wx.YES_NO|wx.CANCEL|wx.ICON_QUESTION)
+			res = dlg.ShowModal()
+			self.log.debug("User said yes, run in the background: %s. User canceled close: %s." %(res==wx.ID_YES, res==wx.ID_CANCEL))
+			dlg.Destroy()
+			if res == wx.ID_YES:
+				self.controller.config['dialogs']['exit_action'] = True
+				self.controller.config['general']['exit_to_tray'] = True
+			elif res == wx.ID_NO:
+				self.controller.config['dialogs']['exit_action']=True
+				self.controller.config['general']['exit_to_tray'] = False
+			elif res == wx.ID_CANCEL: #You scared em off!
+				return
+		if self.controller.config['general']['exit_to_tray'] == True:
+			self.log.debug("Exit to tray enabled, hiding.")
+			self.showhide(None)
+		elif self.controller.config['general']['exit_to_tray'] == False: #bale out!
+			self.log.debug("Exit to tray disabled, starting a top-down exit.")
+			self.controller.OnClose(None)
 
 	def OnClose(self, event):
-		"""Delete system tray icon and this window."""
+		"""Delete system tray icon and this window. Do not confuse it with the "DoClose" method, which performs an action based on what the user has set in config - this is when you really wanna close, it should be run in a top-down manner (from controller), from which all good exiting starts."""
 		self.log.debug("Closing UI...")
 		try:
 			self.icon.Destroy()

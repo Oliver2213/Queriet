@@ -115,4 +115,11 @@ class Controller(object):
 				self.UnregisterAllKeys()
 			except:
 				self.log.exception("Error when unregistering keybindings!")
-
+		if self.config:
+			self.log.debug("Saving config...")
+			try:
+				self.config.write()
+				self.log.debug("Done!")
+			except:
+				self.log.error("Error saving config!")
+		self.log.info("Goodbye.")
