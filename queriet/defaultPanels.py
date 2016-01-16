@@ -23,7 +23,7 @@ class StandardInputPanel(wx.Panel):
 		super(StandardInputPanel, self).__init__(parent)
 		self.inputStatic = wx.StaticText(self, -1, InputFieldString)
 		if EnterFunc is not None:
-			self.input = wx.TextCtrl(self, -1, wx.TE_PROCESS_ENTER)
+			self.input = wx.TextCtrl(self, -1, style=wx.TE_PROCESS_ENTER)
 			self.input.Bind(wx.EVT_TEXT_ENTER, EnterFunc)
 		else:
 			self.input = wx.TextCtrl(self, -1)
