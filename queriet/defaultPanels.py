@@ -1,11 +1,16 @@
 import wx
 import PluginHandler
 
+#Some notes about these panels:
+#They hide themselves by default, so if you are using them as children of your plugin's 'InfoPanel', make sure you 'Show' them, or pass autohide=False to their constructors
+#Also, they don't have OnGain / OnLoseFocus methods, these are building blocks and as such your plugin's focus methods are expected to clear the fields manually
+
+
 class StandardInputPanel(wx.Panel):
 	"""Default input panel, used for inputting information for a query, can be API defined. 
 		This panel is meant as a building block to be placed under an info panel which inherits from PluginHandler.PluginPanel, thus it does not need the OnGain / LoseFocus methods it's parent does.
 	"""
-	def __init__(self, parent, SearchFunc, InputFieldString='Search term or equation', SearchButtonString='Search'):
+	def __init__(self, parent, SearchFunc, InputFieldString='Search term or equation', SearchButtonString='Search', autohide=True):
 		super(StandardInputPanel, self).__init__(parent)
 		self.inputStatic = wx.StaticText(self, -1, InputFieldString)
 		self.input = wx.TextCtrl(self, -1)
@@ -16,16 +21,15 @@ class StandardInputPanel(wx.Panel):
 		self.inputSizer.Add(self.input, 3, wx.TOP|wx.BOTTOM, 10)
 		self.inputSizer.Add(self.SearchButton, 2, wx.TOP|wx.RIGHT|wx.BOTTOM, 20)
 		self.SetSizer(self.inputSizer)
-		self.Hide()
+		if autohide == True:
+			self.Hide()
 
-	def OnLoseFocus(self):
-		self.input.Clear()
 
 class ReadOnlyOutputPanel(wx.Panel):
 	"""The default output panel object, used to display the results of a query.
 		This panel is meant as a building block to be placed under an info panel which inherits from PluginHandler.PluginPanel, thus it does not need the OnGain / LoseFocus methods it's parent does.
 	"""
-	def __init__(self, parent):
+	def __init__(self, parent, autohide=True):
 		super(ReadOnlyOutputPanel, self).__init__(parent)
 		self.outputSizer = wx.BoxSizer(wx.VERTICAL)
 		self.outputStatic = wx.StaticText(self, -1, 'results', (5, 5))
@@ -33,7 +37,5 @@ class ReadOnlyOutputPanel(wx.Panel):
 		self.outputSizer.Add(self.outputStatic, 1, wx.TOP|wx.LEFT, 10)
 		self.outputSizer.Add(self.output, 3, wx.LEFT|wx.BOTTOM|wx.RIGHT|wx.EXPAND, 20)
 		self.SetSizer(self.outputSizer)
-		self.Hide()
-
-	def ONLoseFocus(self):
-		self.output.Clear()
+		if autohide == True:
+			self.Hide()
