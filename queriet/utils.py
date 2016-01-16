@@ -42,7 +42,7 @@ def SetupLogging(caller, level, format):
 	elif level == "error":
 		log.setLevel(logging.ERROR)
 	elif level == "critical":
-		log.setLevel("logging.CRITICAL)
+		log.setLevel(logging.CRITICAL)
 	YapsyLog = logging.getLogger('yapsy')
 	#Define a standard log output format from config
 	LogFormat = logging.Formatter(format)
