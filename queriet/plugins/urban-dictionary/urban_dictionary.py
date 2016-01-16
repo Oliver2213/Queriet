@@ -41,7 +41,7 @@ class UrbanDictInfoPanel(PluginHandler.PluginPanel):
 		if self.OutputPanel.output.GetValue() is None:
 			return #No text in the field
 		else:
-			res = Search(self.OutputPanel.output.GetValue())
+			res = Search(self.InputPanel.input.GetValue())
 			self.OutputPanel.output.SetValue(res)
 
 def Search(text):
