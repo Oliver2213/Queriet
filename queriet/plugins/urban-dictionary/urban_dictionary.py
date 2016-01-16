@@ -21,17 +21,14 @@ class UrbanDictInfoPanel(PluginHandler.PluginPanel):
 	
 	def __init__(self, parent):
 		super(UrbanDictInfoPanel, self).__init__(parent)
-		self.InputPanel = StandardInputPanel(self, self.Search, InputFieldString='Urbandictionary Search')
-		self.OutputPanel = ReadOnlyOutputPanel(self)
+		self.InputPanel = StandardInputPanel(self, self.Search, InputFieldString='Urbandictionary Search', autohide=False, EnterFunc=self.Search)
+		self.OutputPanel = ReadOnlyOutputPanel(self, autohide=False)
 		self.sizer = wx.BoxSizer(wx.VERTICAL)
 		self.sizer.Add(self.InputPanel, 1)
 		self.sizer.Add(self.OutputPanel, 4)
 		self.sizer.Layout()
 		self.SetSizer(self.sizer)
 		self.Fit()
-		# Show the children panels, since they are hidden by default
-		self.InputPanel.Show()
-		self.OutputPanel.Show()
 		self.Hide()
 		
 	def Search(self, event):
