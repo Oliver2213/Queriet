@@ -19,7 +19,8 @@ class MainUI(wx.Frame):
 		self.Bind(wx.EVT_CLOSE, self.DoClose)
 		self.CreateIcon()
 		self.Center()
-		self.Show()
+		if self.controller.config['general']['open_on_startup'] == True:
+			self.Show()
 
 	def setup(self):
 		"""Sets up the application UI layout and menu bar"""
