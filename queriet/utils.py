@@ -24,7 +24,7 @@ def CreateMenuItem(menu, label, func, id=None, help ="", kind=wx.ITEM_NORMAL):
 	menu.AppendItem(item)
 	return item
 
-def SetupLogging(caller):
+def SetupLogging(caller, format):
 	"""This method should only be ran once, from main.py.
 		After that, all modules simply need to:
 		import logging,
@@ -35,8 +35,8 @@ def SetupLogging(caller):
 	log = logging.getLogger(caller) # get a logging object named with the current module running this
 	log.setLevel(logging.DEBUG)
 	YapsyLog = logging.getLogger('yapsy')
-	#Define a standard log output format
-	LogFormat = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
+	#Define a standard log output format from config
+	LogFormat = logging.Formatter(format)
 	#Our stream and file handlers
 	ConsoleHandler = logging.StreamHandler()
 	ConsoleHandler.setLevel(logging.DEBUG)

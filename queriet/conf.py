@@ -13,12 +13,12 @@ def GetConfig(specpath, configpath):
 	"""This function loads a config (if found), checks it against the provided specification, and returns it"""
 	#Try to load the provided specification
 	try:
-		spec = ConfigObj(specpath, encoding='UTF8', list_values=False, _inspec=True)
+		spec = ConfigObj(specpath, encoding='UTF8', list_values=False, interpolation=False, _inspec=True)
 	except (ParseError, IOError) as e:
 		raise ConfError("Error loading specification %r: %r" %(specpath, e))
 	#Try to load the config
 	try:
-		config = ConfigObj(configpath, configspec=spec, create_empty=True, encoding='UTF8')
+		config = ConfigObj(configpath, configspec=spec, create_empty=True, interpolation=False, encoding='UTF8')
 	except ParseError as e: #No IOError because if we don't find the config file, we just create it from the spec
 		raiseConfError("Error when loading config %r" %(configpath))
 	#Now validate it...

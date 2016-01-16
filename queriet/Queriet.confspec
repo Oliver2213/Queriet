@@ -1,0 +1,8 @@
+[general]
+open_on_startup = boolean(default=True)
+log_level = option("debug", "info", "warning", "error", "critical", default = "info")
+exit_to_tray = boolean(default=True)
+ask_to_exit = boolean(default=True)
+
+[logging]
+format = string(default=r"""%(asctime)s - %(name)s - %(levelname)s: %(message)s""")
