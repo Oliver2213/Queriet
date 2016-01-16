@@ -69,6 +69,7 @@ class MainUI(wx.Frame):
 		try:
 			self.MenuBar = wx.MenuBar()
 			self.MenuBar_file = wx.Menu()
+			self.MenuBar_file_hide = utils.CreateMenuItem(self.MenuBar_file, 'Close to &tray', self.showhide)
 			self.MenuBar_file_exit = utils.CreateMenuItem(self.MenuBar_file, 'E&xit', self.controller.OnClose, id=wx.ID_EXIT)
 			
 			self.MenuBar.Append(self.MenuBar_file, '&File')
