@@ -1,14 +1,13 @@
 # -*- mode: python -*-
 
-datafiles=[('Queriet.confspec', '.'), ('plugins/', 'plugins/')]
 block_cipher = None
 
 
 a = Analysis(['main.py'],
              pathex=['C:\\Users\\Blake\\projects\\queriet\\queriet'],
              binaries=None,
-             datas=datafiles,
-             hiddenimports=['defaultPanels', 'urbandict', 'ConfigParser'],
+             datas=[('Queriet.confspec', '.'), ('plugins', 'plugins')],
+             hiddenimports=['urbandict', 'defaultPanels', 'ConfigParser'],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
