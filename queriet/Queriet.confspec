@@ -5,4 +5,4 @@ exit_to_tray = boolean(default=True)
 ask_to_exit = boolean(default=True)
 
 [logging]
-format = string(default=r"""%(asctime)s - %(name)s - %(levelname)s: %(message)s""")
+format = string(default="""%(asctime)s - %(name)s - %(levelname)s: %(message)s""")
