@@ -56,12 +56,12 @@ def Search(text):
 		return string
 	else:
 		word = 'result' if len(results) ==1 else 'results'
-		string+="""%s %s found.""" %(len(results), word)
+		string+="""%s %s found for term %s.\n""" %(len(results), word, text)
 		for entry in results:
 			#Must have word atribute
-			string +='%s:\r\n' %(entry['word'])
+			string +='%s:' %(entry['word'].strip('\n'))
 			#Must have definition
-			string+="""%s\r\n""" %(entry['def'])
+			string+="""%s\n""" %(entry['def'])
 			if entry['example']:
 				string+="""Example: %s""" %(entry['example'])
 		return string
