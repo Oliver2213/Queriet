@@ -36,13 +36,18 @@ class UrbanDictInfoPanel(PluginHandler.PluginPanel):
 		
 	def Search(self, event):
 		"""Don't confuse this with the search function, outside this class.
-		This is merely a proxy method that gets the return value from that function and sets the read only textfield with the result(s).
+			This is merely a proxy method that gets the return value from that function and sets the read only textfield with the result(s).
 		"""		
-		if self.OutputPanel.output.GetValue() is None:
+		if self.InputPanel.input.GetValue() is None:
 			return #No text in the field
 		else:
 			res = Search(self.InputPanel.input.GetValue())
 			self.OutputPanel.output.SetValue(res)
+
+	def OnLoseFocus(self):
+		super(OnLoseFocus, self).OnLoseFocus()
+		self.InputPanel.input.Clear()
+		self.OutPutPanel.output.Clear()
 
 def Search(text):
 	"""This method returns results, concatonated as a string, from urban dictionary"""

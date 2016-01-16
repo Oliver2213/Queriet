@@ -55,7 +55,7 @@ class Plugin(IPlugin):
 
 	def OnGainFocus(self):
 		"""Unless there is something special that your plugin needs to do when it is selected in the API listbox in the user interface, you probably shouldn't mess with this method.
-			If, however, your plugin needs to start pulling data from the web (maybe to display in a list for a "top news" plugin), you should do tkhat here by using Super to get what is defined here (which is the code to run the OnGainFocus and OnLoseFocus methods for your input and output panels).
+			If, however, your plugin needs to start pulling data from the web (maybe to display in a list for a "top news" plugin), you should do that here by using Super to get what is defined here (which is the code to run the OnGainFocus and OnLoseFocus methods for your input and output panels).
 		"""
 		self.InfoPanel.OnGainFocus()
 
