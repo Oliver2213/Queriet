@@ -23,7 +23,7 @@ else:
 
 log = SetupLogging('Queriet', config['logging']['log_level'], config['logging']['format'])
 
-log.debug("Queriet, version %s starting up" %(info.version))
+log.info("Queriet, version %s starting up" %(info.version))
 
 if frozen==True:
 	log.info("Queriet is running from a compiled executable.")
