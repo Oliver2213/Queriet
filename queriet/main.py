@@ -9,7 +9,7 @@ import wx
 from controller import Controller
 
 config = conf.GetConfig('Queriet.confspec', 'Queriet.conf')
-log = SetupLogging('Queriet', config['logging']['format'])
+log = SetupLogging('Queriet', config['logging']['log_level'], config['logging']['format'])
 
 log.debug("Queriet, version %s starting up" %(info.version))
 log.debug("Obtaining WX app object for UI")

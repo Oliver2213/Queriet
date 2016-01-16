@@ -24,7 +24,7 @@ def CreateMenuItem(menu, label, func, id=None, help ="", kind=wx.ITEM_NORMAL):
 	menu.AppendItem(item)
 	return item
 
-def SetupLogging(caller, format):
+def SetupLogging(caller, level, format):
 	"""This method should only be ran once, from main.py.
 		After that, all modules simply need to:
 		import logging,
@@ -33,7 +33,16 @@ def SetupLogging(caller, format):
 		Note: this function accepts the name of the caller as an arg, as for some reason it appears that, even if said caller imports this function specifically from utils, the __name__ attribute isn't that of the caller
 	"""
 	log = logging.getLogger(caller) # get a logging object named with the current module running this
-	log.setLevel(logging.DEBUG)
+	if level == "debug":
+		log.setLevel(logging.DEBUG)
+	elif level == "info":
+		log.setLevel(logging.INFO)
+	elif level == "warning":
+		log.setLevel(logging.WARNING)
+	elif level == "error":
+		log.setLevel(logging.ERROR)
+	elif level == "critical":
+		log.setLevel("logging.CRITICAL)
 	YapsyLog = logging.getLogger('yapsy')
 	#Define a standard log output format from config
 	LogFormat = logging.Formatter(format)
