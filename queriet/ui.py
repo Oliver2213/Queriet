@@ -16,7 +16,10 @@ class MainUI(wx.Frame):
 		self.controller = controller
 		self.setup()
 		self.SetupMenuBar()
-		self.Bind(wx.EVT_CLOSE, self.controller.OnClose)
+		if self.controller.config['general']['exit_to_tray'] == True:	
+			self.Bind(wx.EVT_CLOSE, self.showhide)
+		else: #when the user exits, (with alt f 4 or other methods), actually exit rather than closing to tray
+			self.Bind(wx.EVT_CLOSE, self.controller.OnClose)
 		self.CreateIcon()
 		self.Center()
 		self.Show()
@@ -98,7 +101,7 @@ class MainUI(wx.Frame):
 		self.icon = SystemTrayIcon(UI=self, text="Queriet")
 		self.log.debug("Done!")
 
-	def SetFocus(self, value):
+	def ChangeFocus(self, value):
 		"""Change the displayed UI to that of the selected plugin. Do not pass this function a value less than 0."""
 		if value<0 or value == self.CurrentPluginNumber:
 			return
@@ -156,7 +159,7 @@ class MainUI(wx.Frame):
 		if sel < 0:
 			return
 		self.log.debug("API list selection changed.\n%s is now selected." %(sel))
-		self.SetFocus(sel)
+		self.ChangeFocus(sel)
 
 	def OnAbout(self, event):
 		dlg = wx.MessageDialog(self, """Queriet, the quick ubiquitous extensible research interface enhancement tool, version %s. \nAuthors: %s. \nQueriet is a tool designed to give you quick access to information. With an open framework for developers to define plugins and all sourcecode freely available on Git Hub, we want to make it as easy as possible for anyone with a bit of programming knowledge to make plugins for queriet. \nEach plugin allows Queriet to get information from different sources. For more info, select the 'open website' item from the help menu.""" %(info.version, info.authors), "About Queriet")
