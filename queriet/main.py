@@ -16,6 +16,8 @@ log = SetupLogging('Queriet', config['logging']['log_level'], config['logging'][
 log.debug("Queriet, version %s starting up" %(info.version))
 if getattr( sys, 'frozen', False ) :
 	frozen=True
+else:
+	frozen=False
 if frozen==True:
 	log.debug("Queriet is running from a compiled executable.")
 	log.debug("Changing directory to the temporary location where datafiles are... (%r)" %(sys._MEIPASS))
