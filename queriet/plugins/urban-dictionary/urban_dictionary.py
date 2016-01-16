@@ -42,9 +42,9 @@ class UrbanDictInfoPanel(PluginHandler.PluginPanel):
 			self.OutputPanel.output.SetValue(res)
 
 	def OnLoseFocus(self):
-		super(OnLoseFocus, self).OnLoseFocus()
+		super(UrbanDictInfoPanel, self).OnLoseFocus()
 		self.InputPanel.input.Clear()
-		self.OutPutPanel.output.Clear()
+		self.OutputPanel.output.Clear()
 
 def Search(text):
 	"""This method returns results, concatonated as a string, from urban dictionary"""
