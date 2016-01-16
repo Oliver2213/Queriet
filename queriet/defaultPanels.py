@@ -48,9 +48,10 @@ class ReadOnlyOutputPanel(wx.Panel):
 		super(ReadOnlyOutputPanel, self).__init__(parent)
 		self.outputSizer = wx.BoxSizer(wx.VERTICAL)
 		self.outputStatic = wx.StaticText(self, -1, 'results', (5, 5))
-		self.output = wx.TextCtrl(self, -1, style=wx.TE_MULTILINE|wx.TE_READONLY)
-		self.outputSizer.Add(self.outputStatic, 1, wx.TOP|wx.LEFT, 10)
-		self.outputSizer.Add(self.output, 3, wx.LEFT|wx.BOTTOM|wx.RIGHT|wx.EXPAND, 20)
+		self.output = wx.TextCtrl(self, -1, size=(500, 500), style=wx.TE_MULTILINE|wx.TE_READONLY)
+		#self.output.SetSize(self.output.GetBestSize())
+		self.outputSizer.Add(self.outputStatic, 0, 10)
+		self.outputSizer.Add(self.output, 3, wx.EXPAND|wx.ALL, 20)
 		self.SetSizer(self.outputSizer)
 		if autohide == True:
 			self.Hide()
