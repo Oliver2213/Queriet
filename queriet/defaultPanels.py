@@ -8,10 +8,9 @@ import PluginHandler
 
 class StandardInputPanel(wx.Panel):
 	"""Default input panel, used for inputting information for a query, can be API defined. 
-		This panel is meant as a building block to be placed under an info panel which inherits from PluginHandler.PluginPanel, thus it does not need the OnGain / LoseFocus methods it's parent does.
-	"""
+	This panel is meant as a building block to be placed under an info panel which inherits from PluginHandler.PluginPanel, thus it does not need the OnGain / LoseFocus methods it's parent does."""
 	def __init__(self, parent, SearchFunc, InputFieldString='Search term or equation', SearchButtonString='Search', autohide=True, EnterFunc=None):
-	"""
+		"""
 		Args:
 			parrent: the wx window to set as this panel's parent. required
 			SearchFunc: the function or method to bind to the search button. required
@@ -20,7 +19,7 @@ class StandardInputPanel(wx.Panel):
 			autohide: If the input panel should automatically hide itself. Defaults to True.
 			EnterFunc: Function to bind the enter key to, when pressed in the input field. Defaults to none. You can easily set this (for oneline input fields), to activate the search button by passing in the same function you passed to the 'SearchFunc' arg.
 		"""
-	super(StandardInputPanel, self).__init__(parent)
+		super(StandardInputPanel, self).__init__(parent)
 		self.inputStatic = wx.StaticText(self, -1, InputFieldString)
 		if EnterFunc is not None:
 			self.input = wx.TextCtrl(self, -1, wx.TE_PROCESS_ENTER)
