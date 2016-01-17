@@ -4,6 +4,6 @@ Module = urban_dictionary
 
 [Documentation]
 Author = Blake Oliver
-Version = 1.0
+Version = 1.1
 Website = https://github.com/oliver2213/queriet
-Description = Allows lookup of words and phraises from Urban Dictionary
+Description = Allows lookup of words and phraises from Urban Dictionary. Uses a custom api wrapper written by me.
