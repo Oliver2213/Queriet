@@ -29,9 +29,6 @@ class MainUI(wx.Frame):
 		"""Sets up the application UI layout and menu bar"""
 		self.log.debug("Setting up main UI...")
 
-		#Create options dialog.
-		self.OptionsDialog = Options("Queriet settings", self.controller.config)
-
 		self.ListSizer = wx.BoxSizer(wx.HORIZONTAL) #A list to hold the different APIs
 		self.MainSizer = wx.BoxSizer(wx.HORIZONTAL)
 		self.CurrentPlugin = None
@@ -131,7 +128,8 @@ class MainUI(wx.Frame):
 			self.log.exception("Error while running OnGainFocus method of plugin!")
 
 	def ShowOptions(self, e):
-		self.OptionsDialog.ShowModal()
+		self.OptionsDLG = Options(self.controller.config, parent=self, title="Queriet options")
+		self.OptionsDLG.ShowModal()
 
 
 	def showhide(self, event=None):
@@ -208,7 +206,6 @@ class MainUI(wx.Frame):
 		self.log.debug("Closing UI...")
 		try:
 			self.icon.Destroy()
-			self.OptionsDialog.Destroy()
 			self.Destroy()
 		except:
 			self.log.exception("Error closing UI!")

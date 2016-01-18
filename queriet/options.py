@@ -2,7 +2,7 @@ import wx
 import copy
 
 class Options(wx.Dialog):
-	def __init__(self, title, config):
+	def __init__(self,config, parent=None, title=None):
 		super(Options, self).__init__(parent=None, title=title)
 		self.original_config = config
 		self.config = copy.copy(config)
