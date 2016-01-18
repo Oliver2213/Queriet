@@ -94,4 +94,4 @@ class LoggingPanel(OptionsPanel):
 	def OnListChange(self, e):
 		l = e.GetEventObject()
 		if l.GetSelection()>0:
-			config['log_level'] = l.GetString(l.GetSelection())
+			self.config['log_level'] = l.GetString(l.GetSelection())
