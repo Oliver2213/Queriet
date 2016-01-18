@@ -6,6 +6,7 @@ import os
 import wx
 import utils
 import info
+from options import Options
 
 class MainUI(wx.Frame):
 	"""Class that holds the main user interface for Queriet"""
@@ -27,6 +28,9 @@ class MainUI(wx.Frame):
 	def setup(self):
 		"""Sets up the application UI layout and menu bar"""
 		self.log.debug("Setting up main UI...")
+
+		#Create options dialog.
+		self.OptionsDialog = Options("Queriet settings", self.controller.config)
 
 		self.ListSizer = wx.BoxSizer(wx.HORIZONTAL) #A list to hold the different APIs
 		self.MainSizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -72,6 +76,7 @@ class MainUI(wx.Frame):
 		try:
 			self.MenuBar = wx.MenuBar()
 			self.MenuBar_file = wx.Menu()
+			self.MenuBar_file_options = utils.CreateMenuItem(self.MenuBar_file, "&Options", self.ShowOptions)
 			self.MenuBar_file_hide = utils.CreateMenuItem(self.MenuBar_file, 'Close to &tray', self.showhide)
 			self.MenuBar_file_exit = utils.CreateMenuItem(self.MenuBar_file, 'E&xit', self.controller.OnClose, id=wx.ID_EXIT)
 			
@@ -124,6 +129,10 @@ class MainUI(wx.Frame):
 			plugin.OnGainFocus()
 		except:
 			self.log.exception("Error while running OnGainFocus method of plugin!")
+
+	def ShowOptions(self, e):
+		self.OptionsDialog.ShowModal()
+
 
 	def showhide(self, event=None):
 		"""This method shows or hides the main UI, depending on it's current state. It gets called by the main hotkey, the "DoClose" method (if that's the choice the user wants), and the system tray "show / hide" menu item"""
@@ -199,6 +208,7 @@ class MainUI(wx.Frame):
 		self.log.debug("Closing UI...")
 		try:
 			self.icon.Destroy()
+			self.OptionsDialog.Destroy()
 			self.Destroy()
 		except:
 			self.log.exception("Error closing UI!")

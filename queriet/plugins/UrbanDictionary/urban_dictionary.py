@@ -1,10 +1,9 @@
 #Urban dictionary plugin, part of Queriet
 
 from defaultPanels import StandardInputPanel, ReadOnlyOutputPanel
+import urb
 import PluginHandler
 import wx
-#Yapsy is weird, so we have to do this
-import urb
 
 class urban_dictionary(PluginHandler.Plugin):
 	"""Plugin for queriet that, (you guessed it), allows lookup of words and phraises on urban dictionary via the 'urbandict' python module"""
