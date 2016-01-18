@@ -13,9 +13,9 @@ class Options(wx.Dialog):
 		self.panel = wx.Panel(self)
 		self.Sizer = wx.BoxSizer(wx.HORIZONTAL)
 		self.options = OptionsNotebook(self.panel, self.config)
-		self.ok = wx.Button(self.panel, label='Ok')
+		self.ok = wx.Button(self.panel, id=wx.ID_OK)
 		self.ok.Bind(wx.EVT_BUTTON, self.OnOk)
-		self.cancel = wx.Button(self.panel, label="Cancel")
+		self.cancel = wx.Button(self.panel, id=wx.ID_CANCEL)
 		self.cancel.Bind(wx.EVT_BUTTON, self.CloseDialog)
 		self.Sizer.Add(self.options, 5, wx.ALIGN_LEFT, 10)
 		self.Sizer.Add(self.ok, 0, wx.ALIGN_RIGHT, 10)
@@ -24,7 +24,7 @@ class Options(wx.Dialog):
 
 	def OnOk(self, e):
 		self.original_config = self.config
-		self.CloseDialog(None)
+		self.EndModal(0)
 
 	def CloseDialog(self, e):
 		self.panel.Destroy()

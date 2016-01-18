@@ -204,8 +204,8 @@ class MainUI(wx.Frame):
 		"""Delete system tray icon and this window. Do not confuse it with the "DoClose" method, which performs an action based on what the user has set in config - this is when you really wanna close, it should be run in a top-down manner (from controller), from which all good exiting starts."""
 		self.log.debug("Closing UI...")
 		try:
-			self.icon.Destroy()
-			self.Destroy()
+			#self.icon.Destroy()
+			wx.GetApp().ExitMainLoop()
 		except:
 			self.log.exception("Error closing UI!")
 
