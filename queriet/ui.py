@@ -73,7 +73,7 @@ class MainUI(wx.Frame):
 		try:
 			self.MenuBar = wx.MenuBar()
 			self.MenuBar_file = wx.Menu()
-			self.MenuBar_file_options = utils.CreateMenuItem(self.MenuBar_file, "&Options", self.ShowOptions)
+			self.MenuBar_file_options = utils.CreateMenuItem(self.MenuBar_file, "&Options...", self.ShowOptions)
 			self.MenuBar_file_hide = utils.CreateMenuItem(self.MenuBar_file, 'Close to &tray', self.showhide)
 			self.MenuBar_file_exit = utils.CreateMenuItem(self.MenuBar_file, 'E&xit', self.controller.OnClose, id=wx.ID_EXIT)
 			
@@ -130,7 +130,6 @@ class MainUI(wx.Frame):
 	def ShowOptions(self, e):
 		self.OptionsDLG = Options(self.controller.config, parent=self, title="Queriet options")
 		self.OptionsDLG.ShowModal()
-
 
 	def showhide(self, event=None):
 		"""This method shows or hides the main UI, depending on it's current state. It gets called by the main hotkey, the "DoClose" method (if that's the choice the user wants), and the system tray "show / hide" menu item"""

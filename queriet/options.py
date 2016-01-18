@@ -27,7 +27,8 @@ class Options(wx.Dialog):
 		self.CloseDialog(None)
 
 	def CloseDialog(self, e):
-		self.Close(True)
+		self.panel.Destroy()
+		self.EndModal(0)
 
 
 class OptionsNotebook(wx.Notebook):
@@ -68,7 +69,6 @@ class GeneralPanel(OptionsPanel):
 
 	def toggle(self, e):
 		checkbox = e.GetEventObject()
-		checkbox.SetValue(not checkbox.GetValue())
 		self.config[checkbox.Label.replace(" ", "_")] = checkbox.GetValue()
 
 class LoggingPanel(OptionsPanel):
@@ -93,5 +93,5 @@ class LoggingPanel(OptionsPanel):
 
 	def OnListChange(self, e):
 		l = e.GetEventObject()
-		if l.GetSelection()>0:
+		if l.GetSelection()>=0:
 			self.config['log_level'] = l.GetString(l.GetSelection())
