@@ -1,0 +1,9 @@
+[Core]
+Name = dictionary
+Module = dictionary
+
+[Documentation]
+Author = Blake Oliver
+Version = 1.0
+Website = https://github.com/oliver2213/queriet
+Description = Provides dictionary lookup services for Queriet
