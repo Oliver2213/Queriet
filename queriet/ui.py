@@ -129,7 +129,9 @@ class MainUI(wx.Frame):
 
 	def ShowOptions(self, e):
 		self.OptionsDLG = Options(self.controller.config, parent=self, title="Queriet options")
-		self.OptionsDLG.ShowModal()
+		res = self.OptionsDLG.ShowModal()
+		if res==wx.ID_OK:
+			self.OptionsDLG.SaveConfig()
 
 	def showhide(self, event=None):
 		"""This method shows or hides the main UI, depending on it's current state. It gets called by the main hotkey, the "DoClose" method (if that's the choice the user wants), and the system tray "show / hide" menu item"""
