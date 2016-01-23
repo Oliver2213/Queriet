@@ -3,7 +3,7 @@ import copy
 
 class Options(wx.Dialog):
 	def __init__(self,config, parent=None, title="Queriet options"):
-		super(Options, self).__init__(parent=None, title=title)
+		super(Options, self).__init__(parent=parent, title=title)
 		self.original_config = config
 		self.config = copy.copy(config)
 		self.SetupUI()
@@ -12,23 +12,29 @@ class Options(wx.Dialog):
 	def SetupUI(self):
 		self.panel = wx.Panel(self)
 		self.Sizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.options = OptionsNotebook(self.panel, self.config)
+		self.OptionsNB = OptionsNotebook(self.panel, self.config)
 		self.ok = wx.Button(self.panel, id=wx.ID_OK)
-		#self.ok.Bind(wx.EVT_BUTTON, self.OnOk)
+		self.ok.Bind(wx.EVT_BUTTON, self.OnOk)
 		self.cancel = wx.Button(self.panel, id=wx.ID_CANCEL)
-		#self.cancel.Bind(wx.EVT_BUTTON, self.CloseDialog)
-		self.Sizer.Add(self.options, 5, wx.ALIGN_LEFT, 10)
-		self.Sizer.Add(self.ok, 0, wx.ALIGN_RIGHT, 10)
-		self.Sizer.Add(self.cancel, 0, wx.ALIGN_RIGHT, 10)
-		self.panel.SetSizerAndFit(self.Sizer)
+		self.cancel.Bind(wx.EVT_BUTTON, self.CloseDialog)
+		self.Sizer.Add(self.OptionsNB, wx.EXPAND, 5)
+		self.Sizer.Add(self.ok, 0, wx.ALIGN_BOTTOM, 10)
+		self.Sizer.Add(self.cancel, 0, wx.ALIGN_BOTTOM, 10)
+		#self.panel.SetSizerAndFit(self.Sizer)
+		self.panel.SetSizer(self.Sizer)
+		self.Fit()
+		self.Layout()
+		#self.Show()
 
 	def OnOk(self, e):
 		self.original_config = self.config
-		self.EndModal(0)
+		#e.Skip()
+		self.EndModal(wx.ID_OK)
 
 	def CloseDialog(self, e):
 		#self.panel.Destroy()
-		self.EndModal(0)
+		#e.Skip()
+		self.EndModal(wx.ID_CANCEL)
 
 	def SaveConfig(self):
 		self.original_config = self.config
@@ -53,7 +59,7 @@ class OptionsNotebook(wx.Notebook):
 
 class OptionsPanel(wx.Panel):
 	def __init__(self, parent, config):
-		super(OptionsPanel, self).__init__(parent, wx.ID_ANY)
+		super(OptionsPanel, self).__init__(parent, id=wx.ID_ANY)
 		self.config = config
 		self.setup()
 
@@ -64,10 +70,11 @@ class GeneralPanel(OptionsPanel):
 	def setup(self):
 		self.Sizer = wx.BoxSizer(wx.HORIZONTAL)
 		for k, v in self.config.iteritems():
-			checkbox = wx.CheckBox(self, label=k.replace("_", " "))
-			checkbox.SetValue(v)
-			checkbox.Bind(wx.EVT_CHECKBOX, self.toggle)
-			self.Sizer.Add(checkbox)
+			if type(v)==bool:
+				checkbox = wx.CheckBox(self, label=k.replace("_", " "))
+				checkbox.SetValue(v)
+				checkbox.Bind(wx.EVT_CHECKBOX, self.toggle)
+				self.Sizer.Add(checkbox)
 		self.SetSizerAndFit(self.Sizer)
 
 	def toggle(self, e):

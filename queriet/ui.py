@@ -128,10 +128,11 @@ class MainUI(wx.Frame):
 			self.log.exception("Error while running OnGainFocus method of plugin!")
 
 	def ShowOptions(self, e):
-		self.OptionsDLG = Options(self.controller.config, parent=self, title="Queriet options")
-		res = self.OptionsDLG.ShowModal()
-		if res==wx.ID_OK:
-			self.OptionsDLG.SaveConfig()
+		self.log.debug("Getting options dialog.")
+		DLG = Options(self.controller.config, parent=None, title="Queriet options")
+		self.log.debug("Showing options dialog.")
+		res = DLG.ShowModal()
+		self.log.debug("Options dialog returned with value %s." %(res))
 
 	def showhide(self, event=None):
 		"""This method shows or hides the main UI, depending on it's current state. It gets called by the main hotkey, the "DoClose" method (if that's the choice the user wants), and the system tray "show / hide" menu item"""
@@ -150,6 +151,7 @@ class MainUI(wx.Frame):
 	def OpenIssuePage(self, event):
 		"""Opens the github issues page"""
 		os.startfile('https://github.com/oliver2213/queriet/issues')
+
 	def AddPluginsToList(self):
 		"""This method adds each plugin found in self.controller.plugins to lists that need them, currently only the main listbox.
 			This method gets run each time the plugins list is rebuilt."""
