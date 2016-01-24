@@ -133,6 +133,7 @@ class MainUI(wx.Frame):
 		self.log.debug("Showing options dialog.")
 		res = DLG.ShowModal()
 		self.log.debug("Options dialog returned with value %s." %(res))
+		DLG.Destroy()
 
 	def showhide(self, event=None):
 		"""This method shows or hides the main UI, depending on it's current state. It gets called by the main hotkey, the "DoClose" method (if that's the choice the user wants), and the system tray "show / hide" menu item"""
@@ -208,7 +209,7 @@ class MainUI(wx.Frame):
 		"""Delete system tray icon and this window. Do not confuse it with the "DoClose" method, which performs an action based on what the user has set in config - this is when you really wanna close, it should be run in a top-down manner (from controller), from which all good exiting starts."""
 		self.log.debug("Closing UI...")
 		try:
-			#self.icon.Destroy()
+			self.icon.Destroy()
 			wx.GetApp().ExitMainLoop()
 		except:
 			self.log.exception("Error closing UI!")
