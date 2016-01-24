@@ -27,7 +27,7 @@ class Options(wx.Dialog):
 		#self.Show()
 
 	def OnOk(self, e):
-		self.original_config = self.config
+		self.SaveConfig()
 		#e.Skip()
 		self.EndModal(wx.ID_OK)
 
@@ -38,7 +38,7 @@ class Options(wx.Dialog):
 
 	def SaveConfig(self):
 		self.original_config = self.config
-
+		self.original_config.write()
 
 class OptionsNotebook(wx.Notebook):
 	def __init__(self, parent, config):
@@ -104,7 +104,7 @@ class LoggingPanel(OptionsPanel):
 		self.SetSizerAndFit(self.sizer)
 
 	def FormatChange(self, e):
-		config['format'] = e.GetEventObject().GetValue()
+		self.config['format'] = e.GetEventObject().GetValue()
 
 	def OnListChange(self, e):
 		l = e.GetEventObject()
