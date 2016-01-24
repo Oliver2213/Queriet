@@ -61,38 +61,39 @@ def GetResultString(vtype, term):
 	res = vtype['func'](term)
 	if res == False:
 		return "No results."
-	if vtype['is_json'] == False:
+	if vtype['is_json']:
 		res = json.loads(res)
 	string = ""
 	if len(res)==0: #No results
 		return "No results."
 	word = 'result' if len(res) ==1 else 'results'
 	string += "%d %s:\n" %(len(res), word)
-	for item in res:
-		if vtype['name'] is 'definition' or vtype['name'] is 'synonym' or vtype['name'] is 'usage example': #All of these use the same general format
-			string += '%d, %s\n' %(item['seq']+1, item['text'])
-		elif vtype['name'] is 'antonym':
+	if isinstance(vtype['returntype'], list):
+		for item in res:
+			if vtype['name'] == 'definition' or vtype['name'] == 'synonym' or vtype['name'] == 'usage example': #All of these use the same general format
+				string += '%d, %s\n' %(item['seq']+1, item['text'])
+			elif vtype['name'] == 'part of speech':
+				string += '%d, %s\nExample: %s\n' %(int(item['seq']+1), item['text'], item['example:'])
+			elif vtype['name'] == 'pronunciation':
+				for subitem in item['text']:
+					string += '%d, %s.\n' %(int(subitem['seq']+1), subitem['raw'])
+			elif vtype['name'] == 'hyphenation':
+				if item['seq'] == len(item['text']): #we've reached the end of the word,
+					end='\n'
+				else:
+					end = ' '
+				if 'type' in item.keys():
+					string += '%s (%s)%s' %(item['text'], item['type'], end)
+				else: #No type for this word piece
+					string += '%s%s' %(item['text'], end)
+	elif isinstance(vtype['returntype'], dyct):
+		if vtype['name'] == 'antonym':
 			#only one attribute in the return dict if we are looking for antonyms, the text attribute is a list of them though
 			count=0
-			for subitem in item['text']:
-				string += '%d, %s.\n' %(int(count+1), subitem)
+			for item in res['text']:
+				string += '%d, %s.\n' %(int(count+1), item)
 				count+=1
-		elif vtype['name'] is 'part of speech':
-			string += '%d, %s\nExample: %s\n' %(int(item['seq']+1), item['text'], item['example:'])
-		elif vtype['name'] is 'pronunciation':
-			for subitem in item['text']:
-				string += '%d, %s.\n' %(int(subitem['seq']+1), subitem['raw'])
-		elif vtype['name'] is 'hyphenation':
-			if item['seq'] == len(item['text']): #we've reached the end of the word,
-				end='\n'
-			else:
-				end = ' '
-			if 'type' in item.keys():
-				string += '%s (%s)%s' %(item['text'], item['type'], end)
-			else: #No type for this word piece
-				string += '%s%s' %(item['text'], end)
-			
-		return string
+	return string
 
 
 #constants
@@ -100,41 +101,48 @@ def GetResultString(vtype, term):
 defin={
 	'name' : 'definition',
 	'func' : voc.meaning,
-	'is_json' : True
+	'is_json' : True,
+	'returntype' : list()
 }
 
 syno = {
 	'name' : 'synonym',
 	'func' : voc.synonym,
-	'is_json' : True
+	'is_json' : True,
+	'returntype' : list()
 }
 
 anton = {
 	'name' : 'antonym',
 	'func' : voc.antonym,
-	'is_json' : False
+	'is_json' : False,
+	'returntype' : dict()
 }
 
 partos = {
 	'name' : 'part of speech',
 	'func' : voc.part_of_speech,
-	'is_json' : True
+	'is_json' : True,
+	'returntype' : list()
 }
 
 usagex = {
 	'name' : 'usage example',
 	'func' : voc.usage_example,
-	'is_json' : True
+	'is_json' : True,
+	'returntype' : list()
 }
 
 pronun = {
 	'name' : 'pronunciation',
 	'func' : voc.pronunciation,
-	'is_json' : False
+	'is_json' : False,
+	'returntype' : list()
 }
 
 hyphen = {
 	'name' : 'hyphenation',
 	'func' : voc.hyphenation,
-	'is_json' : True
+	'is_json' : True,
+	'returntype' : list()
 }
