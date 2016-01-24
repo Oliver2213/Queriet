@@ -11,17 +11,17 @@ class Options(wx.Dialog):
 
 	def SetupUI(self):
 		self.panel = wx.Panel(self)
-		self.Sizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.OptionsNB = OptionsNotebook(self.panel, self.config)
+		self.sizer = wx.BoxSizer(wx.HORIZONTAL)
+		self.OptionsNB = OptionsNotebook(self, self.config)
 		self.ok = wx.Button(self.panel, id=wx.ID_OK)
 		self.ok.Bind(wx.EVT_BUTTON, self.OnOk)
 		self.cancel = wx.Button(self.panel, id=wx.ID_CANCEL)
 		self.cancel.Bind(wx.EVT_BUTTON, self.CloseDialog)
-		self.Sizer.Add(self.OptionsNB, wx.EXPAND, 5)
-		self.Sizer.Add(self.ok, 0, wx.ALIGN_BOTTOM, 10)
-		self.Sizer.Add(self.cancel, 0, wx.ALIGN_BOTTOM, 10)
+		self.sizer.Add(self.OptionsNB, wx.EXPAND, 5)
+		self.sizer.Add(self.ok, 0, wx.ALIGN_BOTTOM, 10)
+		self.sizer.Add(self.cancel, 0, wx.ALIGN_BOTTOM, 10)
 		#self.panel.SetSizerAndFit(self.Sizer)
-		self.panel.SetSizer(self.Sizer)
+		self.SetSizer(self.sizer)
 		self.Fit()
 		self.Layout()
 		#self.Show()
@@ -68,14 +68,19 @@ class OptionsPanel(wx.Panel):
 
 class GeneralPanel(OptionsPanel):
 	def setup(self):
-		self.Sizer = wx.BoxSizer(wx.HORIZONTAL)
+		"""Sets up the general tab panel. Currently, it consists of only boolean values, so a simple config dictionary iteration is all we need."""
+		self.sizer = wx.BoxSizer(wx.HORIZONTAL)
+		count = 0 # To allow us to set focus to the first checkbox
 		for k, v in self.config.iteritems():
-			if type(v)==bool:
+			if isinstance(v, bool):
 				checkbox = wx.CheckBox(self, label=k.replace("_", " "))
 				checkbox.SetValue(v)
 				checkbox.Bind(wx.EVT_CHECKBOX, self.toggle)
-				self.Sizer.Add(checkbox)
-		self.SetSizerAndFit(self.Sizer)
+				self.sizer.Add(checkbox)
+				count+=1
+				if count==1:
+					checkbox.SetFocus()
+		self.SetSizerAndFit(self.sizer)
 
 	def toggle(self, e):
 		checkbox = e.GetEventObject()
@@ -83,7 +88,7 @@ class GeneralPanel(OptionsPanel):
 
 class LoggingPanel(OptionsPanel):
 	def setup(self):
-		self.Sizer = wx.GridBagSizer(10, 10)
+		self.sizer = wx.GridBagSizer(10, 10)
 		LogLevels = ["debug", "info", "warning", "error", "critical"]
 		LogLevelLabel = wx.StaticText(self, label = "Logging level")
 		LogLevelListBox = wx.ListBox(self, choices=LogLevels)
@@ -92,11 +97,11 @@ class LoggingPanel(OptionsPanel):
 		self.FormatLabel = wx.StaticText(self, label="Logging format")
 		self.FormatInput = wx.TextCtrl(self, value=self.config['format'])
 		self.FormatInput.Bind(wx.EVT_TEXT, self.FormatChange)
-		self.Sizer.Add(LogLevelLabel, pos=(1, 1))
-		self.Sizer.Add(LogLevelListBox, pos=(1, 2), span=(3, 1))
-		self.Sizer.Add(self.FormatLabel, pos=(5, 1))
-		self.Sizer.Add(self.FormatInput, pos=(5, 2), span=(1, 3))
-		self.SetSizerAndFit(self.Sizer)
+		self.sizer.Add(LogLevelLabel, pos=(1, 1))
+		self.sizer.Add(LogLevelListBox, pos=(1, 2), span=(3, 1))
+		self.sizer.Add(self.FormatLabel, pos=(5, 1))
+		self.sizer.Add(self.FormatInput, pos=(5, 2), span=(1, 3))
+		self.SetSizerAndFit(self.sizer)
 
 	def FormatChange(self, e):
 		config['format'] = e.GetEventObject().GetValue()
