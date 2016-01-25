@@ -40,6 +40,33 @@ class StandardInputPanel(wx.Panel):
 			self.Show()
 
 
+class InputPanelWithRadiobox(wx.Panel):
+	"""This is a standard input panel, (input field, search button), with a radiobox added before the search button to narow a search by different things a plugin supports."""
+	def __init__(self, parent, SearchFunc, RadioboxChoices, InputFieldString='Search term or equation', SearchButtonString='Search', EnterFunc=None, RadioboxChangeFunc=None, autohide=True):
+		super(InputPanelWithRadiobox, self).__init__(parent)
+		self.InputStatic = wx.StaticText(self, -1, InputFieldString)
+		if EnterFunc is not None:
+			self.input = wx.TextCtrl(self, -1, style=wx.TE_PROCESS_ENTER)
+			self.input.Bind(wx.EVT_TEXT_ENTER, EnterFunc)
+		else:
+			self.input = wx.TextCtrl(self, -1)
+		self.Radiobox = wx.RadioBox(self, id=-1, choices=RadioboxChoices, style=wx.RA_VERTICAL)
+		if RadioboxChangeFunc is not None:
+			self.Radiobox.Bind(wx.EVT_RADIOBOX, RadioboxChangeFunc)
+		self.SearchButton = wx.Button(self, -1, SearchButtonString)
+		self.SearchButton.Bind(wx.EVT_BUTTON, SearchFunc)
+		self.InputSizer = wx.BoxSizer(wx.HORIZONTAL) # A sizer for items in the input panel
+		self.InputSizer.Add(self.InputStatic, ) # adding our input label
+		self.InputSizer.Add(self.input, 2)
+		self.InputSizer.Add(self.Radiobox, 1)
+		self.InputSizer.Add(self.SearchButton, 1)
+		self.SetSizer(self.InputSizer)
+		if autohide == True:
+			self.Hide()
+		else:
+			self.Show()
+
+
 class ReadOnlyOutputPanel(wx.Panel):
 	"""The default output panel object, used to display the results of a query.
 		This panel is meant as a building block to be placed under an info panel which inherits from PluginHandler.PluginPanel, thus it does not need the OnGain / LoseFocus methods it's parent does.
