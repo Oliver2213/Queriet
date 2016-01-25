@@ -63,5 +63,5 @@ def Search(text):
 			#Must have definition
 			string+="""%s\n""" %(entry.definition)
 			if entry.example:
-				string+="""Example: %s""" %(entry.example)
+				string+="""Example: %s\n""" %(entry.example)
 		return string
