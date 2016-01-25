@@ -75,8 +75,7 @@ def GetResultString(vtype, term):
 			elif vtype['name'] == 'part of speech':
 				string += '%d, %s\nExample: %s\n' %(int(item['seq']+1), item['text'], item['example:'])
 			elif vtype['name'] == 'pronunciation':
-				for subitem in item['text']:
-					string += '%d, %s.\n' %(int(subitem['seq']+1), subitem['raw'])
+				string += '%d, %s.\n' %(int(item['seq']+1), item['raw'])
 			elif vtype['name'] == 'hyphenation':
 				if item['seq'] == len(item['text']): #we've reached the end of the word,
 					end='\n'
@@ -86,7 +85,7 @@ def GetResultString(vtype, term):
 					string += '%s (%s)%s' %(item['text'], item['type'], end)
 				else: #No type for this word piece
 					string += '%s%s' %(item['text'], end)
-	elif isinstance(vtype['returntype'], dyct):
+	elif isinstance(vtype['returntype'], dict):
 		if vtype['name'] == 'antonym':
 			#only one attribute in the return dict if we are looking for antonyms, the text attribute is a list of them though
 			count=0
