@@ -25,8 +25,8 @@ log = SetupLogging('Queriet', config['logging']['log_level'], config['logging'][
 
 log.info("Queriet, version %s starting up" %(info.version))
 
-if frozen==True:
-	log.info("Queriet is running from a compiled executable.")
+if frozen:
+	log.info("Queriet is running from a compiled executable.\nThe current directory is %r." %(os.getcwd()))
 	log.debug("Changing directory to the temporary location where datafiles are... (%r)" %(sys._MEIPASS))
 	try:
 		os.chdir(sys._MEIPASS)
