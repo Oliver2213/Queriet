@@ -1,5 +1,5 @@
 [general]
-open_on_startup = boolean(default=True)
+open_interface_on_startup = boolean(default=True)
 exit_to_tray = boolean(default=True)
 ask_to_exit = boolean(default=True)
 

@@ -100,12 +100,12 @@ class Controller(object):
 		else:
 			self.log.error("No user interface found, can not start app main loop!")
 
-	def OnClose(self, event):
+	def Close(self, event):
 		"""This method is meant to kick off the process of exiting Queriet. 
 			All menu items, exit buttons, etc, should come here first to start a top-down exit"""
 		self.log.info("Queriet starting shutdown.")
 		if self.ui:
-			self.ui.OnClose(None)
+			self.ui.DoClose(None)
 		if self.pm:
 			self.log.debug("Deactivating all plugins.")
 			self.ShutdownPlugins()
