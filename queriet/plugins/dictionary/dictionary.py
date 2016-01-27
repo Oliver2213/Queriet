@@ -4,7 +4,7 @@
 import json
 import PluginHandler
 import wx
-import defaultPanels
+import ui.defaultPanels as defaultPanels
 from vocabulary import Vocabulary as voc
 
 class DictionaryPlugin(PluginHandler.Plugin):

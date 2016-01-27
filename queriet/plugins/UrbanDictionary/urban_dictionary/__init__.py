@@ -1,6 +1,6 @@
 #Urban dictionary plugin, part of Queriet
 
-from defaultPanels import StandardInputPanel, ReadOnlyOutputPanel
+from ui.defaultPanels import StandardInputPanel, ReadOnlyOutputPanel
 import urb
 import PluginHandler
 import wx
