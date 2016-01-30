@@ -10,7 +10,7 @@ class StandardInputPanel(wx.Panel):
 	"""Default input panel, used for inputting information for a query, can be API defined. 
 		This panel is meant as a building block to be placed under an info panel which inherits from PluginHandler.PluginPanel, thus it does not need the OnGain / LoseFocus methods it's parent does.
 	"""
-	def __init__(self, parent, SearchFunc, InputFieldString='Search term or equation', SearchButtonString='Search', autohide=True, EnterFunc=None):
+	def __init__(self, parent, SearchFunc, InputFieldString='Search &term or equation', SearchButtonString='&Search', autohide=True, EnterFunc=None):
 		"""
 		Args:
 			parrent: the wx window to set as this panel's parent. required
@@ -42,7 +42,7 @@ class StandardInputPanel(wx.Panel):
 
 class InputPanelWithRadiobox(wx.Panel):
 	"""This is a standard input panel, (input field, search button), with a radiobox added before the search button to narow a search by different things a plugin supports."""
-	def __init__(self, parent, SearchFunc, RadioboxChoices, InputFieldString='Search term or equation', SearchButtonString='Search', EnterFunc=None, RadioboxChangeFunc=None, autohide=True):
+	def __init__(self, parent, SearchFunc, RadioboxChoices, InputFieldString='Search &term or equation', SearchButtonString='&Search', EnterFunc=None, RadioboxChangeFunc=None, autohide=True):
 		super(InputPanelWithRadiobox, self).__init__(parent)
 		self.InputStatic = wx.StaticText(self, -1, InputFieldString)
 		if EnterFunc is not None:
@@ -74,7 +74,7 @@ class ReadOnlyOutputPanel(wx.Panel):
 	def __init__(self, parent, autohide=True):
 		super(ReadOnlyOutputPanel, self).__init__(parent)
 		self.outputSizer = wx.BoxSizer(wx.VERTICAL)
-		self.outputStatic = wx.StaticText(self, -1, 'results', (5, 5))
+		self.outputStatic = wx.StaticText(self, -1, '&Results', (5, 5))
 		self.output = wx.TextCtrl(self, -1, size=(500, 500), style=wx.TE_MULTILINE|wx.TE_READONLY)
 		#self.output.SetSize(self.output.GetBestSize())
 		self.outputSizer.Add(self.outputStatic, 0, 10)
