@@ -207,7 +207,7 @@ class MainUI(wx.Frame):
 			self.showhide(None)
 		elif self.controller.config['general']['exit_to_tray'] == False: #bale out!
 			self.log.debug("Exit to tray disabled, starting a top-down exit.")
-			self.controller.OnClose(None)
+			self.controller.Close(None)
 
 	def DoClose(self, event):
 		"""Delete system tray icon and this window. Do not confuse it with the "OnClose" method, which performs an action based on what the user has set in config - this is when you really want to close, it should be run in a top-down manner (from controller), from which all good exiting starts."""
