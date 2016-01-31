@@ -49,8 +49,10 @@ class OptionsNotebook(wx.Notebook):
 	def Setup(self):
 		self.general = GeneralPanel(self, self.config['general'])
 		self.logging = LoggingPanel(self, self.config['logging'])
+		self.keybindings = KeystrokeEditor(self, self.config['keybindings'])
 		self.AddPage(self.general, "General")
 		self.AddPage(self.logging, "Logging")
+		self.AddPage(self.keybindings, "Keybindings")
 		self.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.OnPageChanged)
 
 	def OnPageChanged(self, e):
@@ -110,3 +112,60 @@ class LoggingPanel(OptionsPanel):
 		l = e.GetEventObject()
 		if l.GetSelection()>=0:
 			self.config['log_level'] = l.GetString(l.GetSelection())
+
+class KeystrokeEditor(OptionsPanel):
+	#helper functions
+	def list_to_string(self, l, string=""):
+		if len(l)==1:
+			return string+l[0]
+		else:
+			return self.list_to_string(l[1:], string+(l[0]+"+"))
+	def string_to_list(self, string):
+		return string.split("+")
+	def pass_checklist(self, string):
+		self.SetCheckboxes(self.string_to_list(string)[:-1])
+		self.Letter.SetValue(self.string_to_list(string)[-1:][0])
+	def SetCheckboxes(self, l):
+		self.ControlCheckbox.SetValue(True if "control" in l else False)
+		self.WinCheckbox.SetValue(True if "win" in l else False)
+		self.ShiftCheckbox.SetValue(True if "shift" in l else False)
+		self.AltCheckbox.SetValue(True if "alt" in l else False)
+	def setup(self):
+		self.sizer = wx.BoxSizer(wx.HORIZONTAL)
+		self.OptionsListbox = wx.ListBox(self, choices=[])
+		self.OptionsListbox.Bind(wx.EVT_LISTBOX, self.on_change)
+		self.sizer.Add(self.OptionsListbox)
+		self.ControlCheckbox=wx.CheckBox(self, label="Control")
+		self.WinCheckbox=wx.CheckBox(self, label="Windows")
+		self.AltCheckbox=wx.CheckBox(self, label="Alt")
+		self.ShiftCheckbox=wx.CheckBox(self, label="Shift")
+		self.Letter = wx.TextCtrl(self, -1)
+		self.brb = wx.Button(self)
+		self.brb.Bind(wx.EVT_BUTTON, self.on_push_brb)
+		self.sizer.Add(self.ControlCheckbox)
+		self.sizer.Add(self.WinCheckbox)
+		self.sizer.Add(self.AltCheckbox)
+		self.sizer.Add(self.ShiftCheckbox)
+		self.sizer.Add(self.Letter)
+		#Same pattern from above code, but set checkboxes based on first value
+		count=0
+		for k, v in self.config.iteritems():
+			self.OptionsListbox.Append(k)
+			count += 1
+			if count==1:
+				self.pass_checklist(self.config[k])
+	def on_change(self, e):
+		self.pass_checklist(self.config[self.OptionsListbox.GetString(self.OptionsListbox.GetSelection())])
+	def on_push_brb(self, e):
+		l=[]
+		if self.ControlCheckbox.GetValue():
+			l.append("control")
+		if self.AltCheckbox.GetValue():
+			l.append("alt")
+		if self.WinCheckbox.GetValue():
+			l.append("win")
+		if self.ShiftCheckbox.GetValue():
+			l.append("shift")
+		l.append(self.Letter.GetValue())
+		f=self.list_to_string(l)
+		self.config[self.OptionsListbox.GetString(self.OptionsListbox.GetSelection())]=f

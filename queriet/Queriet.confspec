@@ -9,3 +9,6 @@ format = string(default='%(asctime)s - %(name)s - %(levelname)s: %(message)s')
 
 [dialogs]
 exit_action = boolean(default=False)
+
+[keybindings]
+showhide=string(default='win+q')

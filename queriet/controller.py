@@ -78,7 +78,7 @@ class Controller(object):
 		self.UnregisterAllKeys = self.keyhandler.unregister_all_keys
 		self.RegisterKeys = self.keyhandler.register_keys
 		self.UnregisterKeys = self.keyhandler.unregister_keys
-		self.RegisterKey('win+q', self.ui.showhide)
+		self.RegisterKey(self.config['keybindings']['showhide'], self.ui.showhide)
 
 
 	def ShutdownPlugins(self):
