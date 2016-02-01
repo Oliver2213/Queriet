@@ -137,6 +137,7 @@ class KeystrokeEditor(OptionsPanel):
 		self.AltCheckbox=wx.CheckBox(self, label="Alt")
 		self.ShiftCheckbox=wx.CheckBox(self, label="Shift")
 		self.Letter = wx.TextCtrl(self, -1)
+		self.Letter.SetMaxLength(1)
 		self.brb = wx.Button(self, label="Save config")
 		self.brb.Bind(wx.EVT_BUTTON, self.on_push_brb)
 		self.sizer.Add(self.ControlCheckbox)
