@@ -115,11 +115,8 @@ class LoggingPanel(OptionsPanel):
 
 class KeystrokeEditor(OptionsPanel):
 	#helper functions
-	def list_to_string(self, l, string=""):
-		if len(l)==1:
-			return string+l[0]
-		else:
-			return self.list_to_string(l[1:], string+(l[0]+"+"))
+	def list_to_string(self, l):
+		return "+".join(l)
 	def string_to_list(self, string):
 		return string.split("+")
 	def pass_checklist(self, string):
