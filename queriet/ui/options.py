@@ -150,6 +150,7 @@ class KeystrokeEditor(OptionsPanel):
 			self.OptionsListbox.Append(k)
 			count += 1
 			if count==1:
+				self.OptionsListbox.SetSelection(0)
 				self.pass_checklist(self.config[k])
 	def on_change(self, e):
 		self.pass_checklist(self.config[self.OptionsListbox.GetString(self.OptionsListbox.GetSelection())])
