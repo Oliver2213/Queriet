@@ -19,9 +19,9 @@ class DictionaryPlugin(PluginHandler.Plugin):
 
 	def OnLoseFocus(self):
 		"""Clear the controlls"""
-		self.InputPanel.input.Clear()
-		self.InputPanel.Radiobox.SetSelection(0)
-		self.OutputPanel.output.Clear()
+		self.InfoPanel.InputPanel.input.Clear()
+		self.InfoPanel.InputPanel.Radiobox.SetSelection(0)
+		self.InfoPanel.OutputPanel.output.Clear()
 
 
 class DictionaryInfoPanel(PluginHandler.PluginPanel):

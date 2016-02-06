@@ -1,9 +1,0 @@
-[Core]
-Name = Hello
-Module = hello
-
-[Documentation]
-Author = Bradley Renshaw
-Version = 1.0
-Website = https://github.com/oliver2213/queriet
-Description = Print the text "Hello World". Original, isn't it?

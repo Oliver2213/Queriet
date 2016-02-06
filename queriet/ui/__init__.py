@@ -6,7 +6,9 @@ import os
 import wx
 import utils
 import info
+import defaultPanels
 from options import Options
+
 
 class MainUI(wx.Frame):
 	"""Class that holds the main user interface for Queriet"""
