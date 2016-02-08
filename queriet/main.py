@@ -17,7 +17,7 @@ else:
 	frozen=False
 
 if frozen==True:
-	config = conf.GetConfig(sys._MEIPASS+'/Queriet.confspec', 'Queriet.conf')
+	config = conf.GetConfig(sys._MEIPASS+'/Queriet.confspec', os.path.dirname(os.path.abspath(__file__))+'/Queriet.conf')
 else:
 	config = conf.GetConfig(os.path.dirname(os.path.abspath(__file__))+'/Queriet.confspec', os.path.dirname(os.path.abspath(__file__))+'/Queriet.conf')
 
@@ -27,12 +27,6 @@ log.info("Queriet, version %s starting up" %(info.version))
 
 if frozen:
 	log.info("Queriet is running from a compiled executable.\nThe current directory is %r." %(os.getcwd()))
-	log.debug("Changing directory to the temporary location where datafiles are... (%r)" %(sys._MEIPASS))
-	try:
-		os.chdir(sys._MEIPASS)
-	except:
-		log.error("Error while changing directory to %r!" %(sys._MEIPASS))
-
 
 log.debug("Obtaining WX app object for UI...")
 app = wx.App()
