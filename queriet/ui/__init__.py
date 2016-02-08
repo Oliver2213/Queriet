@@ -180,7 +180,7 @@ class MainUI(wx.Frame):
 
 	def OnAbout(self, event):
 		"""Displays the standard "about" dialog that gives information on the program."""
-		dlg = wx.MessageDialog(self, """Queriet, the quick ubiquitous extensible research interface enhancement tool, version %s. \nAuthors: %s. \nQueriet is a tool designed to give you quick access to information. With an open framework for developers to define plugins and all sourcecode freely available on Git Hub, we want to make it as easy as possible for anyone with a bit of programming knowledge to make plugins for queriet. \nEach plugin allows Queriet to get information from different sources. For more info, select the 'open website' item from the help menu.""" %(info.version, info.authors), "About Queriet")
+		dlg = wx.MessageDialog(self, """Queriet, the quick ubiquitous extensible research interface enhancement tool, version %s. \nAuthors: %s. \nQueriet is a tool designed to give you quick access to information. With an open framework for developers to define plugins and all sourcecode freely available on Git Hub, we want to make it as easy as possible for anyone with a bit of programming knowledge to make plugins for queriet. \nEach plugin allows Queriet to get information from different sources. For more info, select the 'open website' item from the help menu.""" %(info.version, info.authors), "About Queriet", wx.OK)
 		dlg.ShowModal()
 		dlg.Destroy()
 
