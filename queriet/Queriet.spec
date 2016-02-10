@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['c:\\code\\queriet\\queriet'],
+             pathex=[''],
              binaries=None,
              datas=[('queriet.confspec', '.')],
              hiddenimports=['requests', 'vocabulary'],
