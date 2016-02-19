@@ -1,0 +1,5 @@
+yapsy
+requests
+updater4pyi
+configobj
+validate
