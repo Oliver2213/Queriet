@@ -34,9 +34,7 @@ class UrbanDictInfoPanel(PluginHandler.PluginPanel):
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         self.sizer.Add(self.InputPanel, 1)
         self.sizer.Add(self.OutputPanel, 4)
-        self.sizer.Layout()
         self.SetSizer(self.sizer)
-        self.Fit()
         self.Hide()
 
     def Search(self, event):

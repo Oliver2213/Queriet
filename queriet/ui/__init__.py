@@ -7,6 +7,7 @@ import wx
 import utils
 import info
 import defaultPanels
+from wx.adv import TaskBarIcon
 from options import Options
 
 
@@ -65,14 +66,15 @@ class MainUI(wx.Frame):
         self.ListSizer.Add(self.apiStatic, 1, wx.EXPAND)
         # Add it to the list sizer
         self.ListSizer.Add(self.apiList, 3, wx.EXPAND)
-        self.ListSizer.Layout()
         self.ListPanel.SetSizer(self.ListSizer)
-        self.ListPanel.Fit()
         self.MainSizer.Add(self.ListPanel, 1)
         if self.InfoPanel:
             self.MainSizer.Add(self.InfoPanel, 3, wx.EXPAND)
-        self.MainSizer.Layout()
+
         self.panel.SetSizer(self.MainSizer)
+
+        self.ListSizer.Fit(self.ListPanel)
+        self.MainSizer.Fit(self.panel)
         self.panel.Fit()
 
     def SetupMenuBar(self):
@@ -256,7 +258,7 @@ class MainUI(wx.Frame):
             self.log.exception("Error closing UI!")
 
 
-class SystemTrayIcon(wx.TaskBarIcon):
+class SystemTrayIcon(TaskBarIcon):
     """Class that implements a system tray icon for Queriet"""
 
     def __init__(self, UI, text):
@@ -265,10 +267,8 @@ class SystemTrayIcon(wx.TaskBarIcon):
         self.log = logging.getLogger('Queriet.' + __name__)
         self.MUI = UI
         self.SetIcon(wx.NullIcon, text)
-        self.CreateMenu()
-        self.Bind(wx.EVT_TASKBAR_LEFT_DOWN, self.on_left_down)
 
-    def CreateMenu(self):
+    def CreatePopupMenu(self):
         """Creates a reusable menu for the tray icon"""
         self.log.debug("Creating system tray menu...")
         try:

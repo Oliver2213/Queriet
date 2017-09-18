@@ -24,7 +24,7 @@ def CreateMenuItem(menu, label, func, id=None, help="", kind=wx.ITEM_NORMAL):
         id = wx.ID_ANY
     item = wx.MenuItem(menu, id, label, help, kind)
     menu.Bind(wx.EVT_MENU, func, id=item.GetId())
-    menu.AppendItem(item)
+    menu.Append(item)
     return item
 
 
